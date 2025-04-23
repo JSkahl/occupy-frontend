@@ -13,3 +13,7 @@
   font-family: "Tilt Warp", sans-serif;
   margin: 0;
 }
+
+body {
+  height: 100vh;
+}
