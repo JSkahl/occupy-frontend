@@ -33,12 +33,12 @@
 
 .transparent {
   background-color: transparent;
-  border: 0.1em solid var(--purple);
-  color: var(--purple);
+  border: 0.1em solid var(--blue);
+  color: var(--blue);
 }
 
 .filled {
-  background-color: var(--purple);
+  background-color: var(--blue);
   border: none;
   color: var(--white);
 }

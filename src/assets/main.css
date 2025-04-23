@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap');
 
 :root {
-  --purple:      #9951D4;
+  --blue:        #6050DC;
   --light-white: #EBDAF9;
   --white:       #FFFFFF;
   --gray:        #544D5A;
@@ -11,4 +11,5 @@
 
 * {
   font-family: "Tilt Warp", sans-serif;
+  margin: 0;
 }
