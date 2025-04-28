@@ -6,7 +6,7 @@
     },
 
     size: {
-      type: parseInt,
+      type: Number,
       default: 1,
     }
   })
