@@ -1,21 +1,20 @@
 <script setup>
+defineProps({
+  variant: {
+    type: String,
+    required: true,
+  },
 
-  defineProps({
-    variant: {
-      type: String,
-      required: true,
-    },
+  text: {
+    type: String,
+    required: true,
+  },
 
-    text: {
-      type: String,
-      required: true,
-    },
-
-    onClick: {
-      type: Function,
-      required: true,
-    },
-  })
+  onClick: {
+    type: Function,
+    required: true,
+  },
+});
 </script>
 
 <template>
