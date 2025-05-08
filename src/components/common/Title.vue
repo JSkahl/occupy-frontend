@@ -7,20 +7,17 @@
 
     size: {
       type: Number,
-      default: 1,
+      required: true,
     }
   })
 </script>
 
 <template>
-  <h1 v-if="size === 1">{{ text }}</h1>
-  <h2 v-if="size === 2">{{ text }}</h2>
-  <h3 v-if="size === 3">{{ text }}</h3>
-  <h4 v-if="size === 4">{{ text }}</h4>
-  <h5 v-if="size === 5">{{ text }}</h5>
-  <h6 v-if="size === 6">{{ text }}</h6>
+  <h1 v-if="size === 1" class="text-4xl font-bold">{{ text }}</h1>
+  <h2 v-else-if="size === 2" class="text-3xl font-semibold">{{ text }}</h2>
+  <h3 v-else-if="size === 3" class="text-2xl font-medium">{{ text }}</h3>
+  <h4 v-else-if="size === 4" class="text-xl">{{ text }}</h4>
+  <h5 v-else-if="size === 5" class="text-lg">{{ text }}</h5>
+  <h6 v-else class="text-base">{{ text }}</h6>
 </template>
 
-<script setup>
-  
-</script>
