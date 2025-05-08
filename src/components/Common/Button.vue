@@ -22,8 +22,8 @@
   <button @click="onClick"
     class="
       md:w-48 md:h-6 md:text-base
-      lg:w-2xs lg:h-8 lg:text-lg
-      xl:w-xs xl:h-10 xl:text-xl 
+      lg:w-3xs lg:h-8 lg:text-lg
+      xl:w-2xs xl:h-10 xl:text-xl 
       rounded-md"
     :class="variant"
     >
