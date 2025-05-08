@@ -13,54 +13,40 @@ function funcTest() {
 </script>
 
 <template>
-  <div class="container">
-    <Title text="Seja bem-vindo à Occupy!" :size="1.0" />
+  <div 
+    class="
+      w-[50vw] h-screen
+      flex flex-col justify-around items-center
+      py-[3%]
+    ">
+    <Title text="Seja bem-vindo à Occupy!" :size="1" />
 
-    <div class="form">
-      <span>
+    <div 
+      class="
+        w-full h-[40%]
+        flex flex-col items-center content-between
+    ">
+
+      <div 
+        class="
+          flex flex-col justify-around 
+          h-full
+        ">
         <Input label="Email" placeholder="Insira o seu email" :icon="Account" type="email" />
-        <span>
+        <div>
           <PasswordInput label="Senha" placeholder="Insira a sua senha"/>
           <Link link="/" text="Esqueceu a sua senha?" :size="1" />
-        </span>
-      </span>
+        </div>
+      </div>
     </div>
 
-    <div class="buttons">
+    <div 
+      class="
+        w-full h-[40%]
+        flex flex-col justify-evenly items-center
+      ">
       <Button variant="filled" text="Entrar" :onClick="funcTest" />
       <Button variant="transparent" text="Cadastrar-se" :onClick="funcTest" />
     </div>
   </div>
 </template>
-
-<style scoped>
-.container {
-  width: 50vw;
-  gap: 5%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 6% 0;
-}
-
-.form {
-  height: 40%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 10em;
-  justify-content: center;
-  align-items: center;
-}
-
-.buttons {
-  height: 40%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1em;
-}
-
-</style>
