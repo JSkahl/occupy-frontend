@@ -19,21 +19,22 @@
 </script>
 
 <template>
-  <button :class="['btn', variant]" @click="onClick">
+  <button @click="onClick"
+    class="
+      md:w-48 md:h-6 md:text-base
+      lg:w-3xs lg:h-8 lg:text-lg
+      xl:w-2xs xl:h-10 xl:text-xl 
+      rounded-md"
+    :class="variant"
+    >
     {{ text }}
   </button>
 </template>
 
 <style scoped>
-.btn {
-  padding: 0.5em 2em;
-  border-radius: 0.5em;
-  font-size: 1em;
-}
-
 .transparent {
   background-color: transparent;
-  border: 0.1em solid var(--blue);
+  border: 2px solid var(--blue);
   color: var(--blue);
 }
 
