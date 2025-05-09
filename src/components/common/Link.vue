@@ -18,15 +18,10 @@
 </script>
 
 <template>
-  <RouterLink :to="link" :class="['link', size === 1 ? 'small' : 'normal']">{{ text }}</RouterLink> 
+  <RouterLink :to="link" :class="['link', size === 1 ? 'small' : 'normal']" class="no-underline text-(--blue)">{{ text }}</RouterLink> 
 </template>
 
 <style scoped>
-.link {
-  text-decoration: none;
-  color: var(--blue);
-}
-
 .small {
   font-size: 0.8em;
 }
