@@ -27,6 +27,7 @@ const dropMenu = () => { isDroped.value = !isDroped.value }
 </script>
 
 <template>
+<div>
   <label class="
     text-[var(--blue)] pl-[1%]
   ">{{ label }}</label>
@@ -59,6 +60,8 @@ const dropMenu = () => { isDroped.value = !isDroped.value }
     </span>
       </div>
   <Dropdown v-if="isDroped"/>
+
+</div>
 </template>
 
 <style scoped>

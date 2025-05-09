@@ -22,6 +22,7 @@ defineProps({
 </script>
 
 <template>
+<div>
   <!--Buttons-->
   <div 
     class="
@@ -35,18 +36,18 @@ defineProps({
         flex justify-center items-center
         bg-[var(--blue)] hover:bg-[var(--darker-blue)]
         text-[var(--white)]
-        rounded-md cursor-pointer
+        rounded-lg cursor-pointer
       " @click="decrement">
       <ArrowLeft />
     </div>
-    {{counter}}
+
     <div 
       class="
         w-12 h-12
         flex justify-center items-center
         bg-[var(--blue)] hover:bg-[var(--darker-blue)]
         text-[var(--white)]
-        rounded-md cursor-pointer
+        rounded-lg cursor-pointer
       " @click="increment">
       <ArrowRight />
     </div>
@@ -56,7 +57,7 @@ defineProps({
   <div 
     class="
       w-[50vw] h-12
-      px-[21%]
+      px-[40%]
       flex justify-between items-center
     ">
     
@@ -65,6 +66,7 @@ defineProps({
     <div class="w-4 h-4 rounded-full shadow-[0_4px_3px_rgba(0,0,0,0.25)]" :class="[counter == 2 ? 'selected' : 'not-selected']"></div>
     <div class="w-4 h-4 rounded-full shadow-[0_4px_3px_rgba(0,0,0,0.25)]" :class="[counter == 3 ? 'selected' : 'not-selected']"></div>
   </div>
+</div>
 </template>
 
 <style scoped>

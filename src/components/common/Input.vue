@@ -23,7 +23,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="container">
+  <div>
     <label class="text-[var(--blue)] pl-[1%]">{{ label }}</label>
 
     <div
