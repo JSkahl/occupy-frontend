@@ -11,6 +11,10 @@ const router = createRouter({
       path: "/login",
       component: () => import("@/views/auth/Login.vue"),
     },
+    {
+      path: "/personal-register",
+      component: () => import("@/views/auth/PersonalRegister.vue"),
+    },
   ],
 });
 
