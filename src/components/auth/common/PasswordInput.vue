@@ -24,6 +24,7 @@ defineProps({
 </script>
 
 <template>
+<div>
   <label class="
     text-[var(--blue)] pl-[1%]
   ">{{ label }}</label>
@@ -52,6 +53,8 @@ defineProps({
       <EyeClosed v-else class="text-[var(--gray)]"/>
     </span>
   </div>
+
+</div>
 </template>
 
 <style scoped>

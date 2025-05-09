@@ -19,7 +19,7 @@ const empresas = ref([
   <div 
     class="
       bg-(--white) rounded-md shadow-[0px_10px_16px_7px_rgba(0,0,0,0.25)]
-      p-2
+      p-2 absolute
       overflow-scroll
       gap-[30px]
       md:w-64 md:max-h-24
