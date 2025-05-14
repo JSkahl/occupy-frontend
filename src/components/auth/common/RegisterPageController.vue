@@ -1,10 +1,10 @@
 <script setup>
-import { defineModel } from "vue";
+import { defineModel, computed } from "vue";
 
 import ArrowRight from "vue-material-design-icons/ArrowRight.vue";
 import ArrowLeft from "vue-material-design-icons/ArrowLeft.vue";
 
-defineProps({
+const props = defineProps({
   counter: {
     type: Number,
     required: true,
@@ -12,7 +12,7 @@ defineProps({
 
   dots: {
     type: Number,
-    required: false,
+    required: true,
   },
 });
 
@@ -23,7 +23,7 @@ const decrement = () => {
 };
 
 const increment = () => {
-  counter.value >= 3 ? (counter.value = 3) : counter.value++;
+  counter.value >= props.dots - 1 ? (counter.value = props.dots - 1) : counter.value++;
 };
 </script>
 
