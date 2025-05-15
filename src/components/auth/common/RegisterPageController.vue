@@ -1,5 +1,5 @@
 <script setup>
-import { defineModel, computed } from "vue";
+import { defineModel } from "vue";
 
 import ArrowRight from "vue-material-design-icons/ArrowRight.vue";
 import ArrowLeft from "vue-material-design-icons/ArrowLeft.vue";
