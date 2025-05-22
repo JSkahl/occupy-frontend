@@ -1,6 +1,5 @@
 <script setup>
-  import Input from '@/components/common/Input.vue';
-  import PasswordInput from '../../common/PasswordInput.vue';
+  import { Input, PasswordInput } from "@/components";
 
   import Account from 'vue-material-design-icons/Account.vue';
 </script>

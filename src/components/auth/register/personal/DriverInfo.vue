@@ -1,5 +1,5 @@
 <script setup>
-import Input from '@/components/common/Input.vue';
+  import { Input } from '@/components';
 
 import CardAccountDetails from 'vue-material-design-icons/CardAccountDetails.vue';
 import Numeric from 'vue-material-design-icons/Numeric.vue'

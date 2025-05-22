@@ -1,10 +1,10 @@
 <script setup>
-import { Banner, LoginForm } from "@/components";
+import { Banner, EnterpriseRegisterForm } from "@/components";
 </script>
 
 <template>
   <div class="flex">
     <Banner />
-    <LoginForm />
+    <EnterpriseRegisterForm />
   </div>
 </template>

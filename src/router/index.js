@@ -15,6 +15,10 @@ const router = createRouter({
       path: "/personal-register",
       component: () => import("@/views/auth/PersonalRegister.vue"),
     },
+    {
+      path: "/enterprise-register",
+      component: () => import("@/views/auth/EnterpriseRegister.vue"),
+    },
   ],
 });
 

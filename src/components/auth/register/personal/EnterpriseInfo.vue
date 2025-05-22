@@ -1,5 +1,5 @@
 <script setup>
-  import Selector from '@/components/common/Selector.vue';
+  import { Selector } from '@/components';
 
   import City from 'vue-material-design-icons/City.vue';
   import Domain from 'vue-material-design-icons/Domain.vue';

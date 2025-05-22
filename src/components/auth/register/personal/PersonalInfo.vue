@@ -1,7 +1,5 @@
 <script setup>
-import ProfilePictureInput from '../../common/ProfilePictureInput.vue';
-import Input from '@/components/common/Input.vue';
-import Selector from '@/components/common/Selector.vue';
+import { ProfilePictureInput, Input, Selector } from '@/components';
 
 import Account from 'vue-material-design-icons/Account.vue';
 import CircleOutline from 'vue-material-design-icons/CircleOutline.vue';

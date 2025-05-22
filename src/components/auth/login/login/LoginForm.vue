@@ -1,6 +1,6 @@
 <script setup>
 import Input from "@/components/common/Input.vue";
-import PasswordInput from "../common/PasswordInput.vue";
+import PasswordInput from "@/components/auth/common/PasswordInput.vue";
 import Button from "@/components/common/Button.vue";
 import Link from "@/components/common/Link.vue";
 import Title from "@/components/common/Title.vue";
