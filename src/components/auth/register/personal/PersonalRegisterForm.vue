@@ -2,7 +2,7 @@
 import { ref } from "vue";
 
 import Title from "@/components/common/Title.vue";
-import IdInfo from "./IdInfo.vue";
+import PersonalIdInfo from "./PersonalIdInfo.vue";
 import PersonalInfo from "./PersonalInfo.vue";
 import EnterpriseInfo from "./EnterpriseInfo.vue";
 import DriverInfo from "./DriverInfo.vue";
@@ -19,7 +19,7 @@ let counter = ref(0);
       class="pl-6 pt-6" />
 
     <!--Pages-->
-    <IdInfo v-if="counter == 0" />
+    <PersonalIdInfo v-if="counter == 0" />
     <PersonalInfo v-if="counter == 1" />
     <EnterpriseInfo v-if="counter == 2" />
     <DriverInfo v-if="counter == 3" />
