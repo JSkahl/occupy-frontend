@@ -1,6 +1,6 @@
 <script setup>
 // Components
-import Input from "@/components/common/Input.vue";
+import { Input } from "@/components";
 
 // Icons
 import Phone from "vue-material-design-icons/Phone.vue";

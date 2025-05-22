@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 
 import MenuDown from 'vue-material-design-icons/MenuDown.vue'
-import Dropdown from './Dropdown.vue';
+import { Dropdown } from '@/components';
 
 defineProps({
   label: {

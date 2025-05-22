@@ -1,22 +1,21 @@
 <script setup>
 import { ref } from "vue";
 
-import Title from "@/components/common/Title.vue";
-import PersonalIdInfo from "./PersonalIdInfo.vue";
-import PersonalInfo from "./PersonalInfo.vue";
-import EnterpriseInfo from "./EnterpriseInfo.vue";
-import DriverInfo from "./DriverInfo.vue";
-import RegisterPageController from "../../common/RegisterPageController.vue";
+import {
+  Title,
+  PersonalIdInfo,
+  PersonalInfo,
+  EnterpriseInfo,
+  DriverInfo,
+  RegisterPageController,
+} from "@/components";
 
 let counter = ref(0);
 </script>
 
 <template>
   <div class="w-[50vw] h-screen flex flex-col justify-between">
-    <Title 
-      text="Cadastro Pessoal" 
-      :size="1" 
-      class="pl-6 pt-6" />
+    <Title text="Cadastro Pessoal" :size="1" class="pl-6 pt-6" />
 
     <!--Pages-->
     <PersonalIdInfo v-if="counter == 0" />

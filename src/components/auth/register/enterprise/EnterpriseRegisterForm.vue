@@ -1,11 +1,7 @@
 <script setup>
 import { ref } from "vue";
 
-import RegisterPageController from "@/components/auth/common/RegisterPageController.vue";
-import Title from "@/components/common/Title.vue";
-import EnterpriseIdInfo from "./EnterpriseIdInfo.vue";
-import LocaleInfo from "./LocaleInfo.vue";
-import ContactInfo from "./ContactInfo.vue";
+import { RegisterPageController, Title, EnterpriseIdInfo, LocaleInfo, ContactInfo } from "@/components";
 
 let counter = ref(0);
 </script>

@@ -1,6 +1,5 @@
 <script setup>
-import Banner from "@/components/auth/common/Banner.vue";
-import EnterpriseRegisterForm from "@/components/auth/register/enterprise/EnterpriseRegisterForm.vue";
+import { Banner, EnterpriseRegisterForm } from "@/components";
 </script>
 
 <template>

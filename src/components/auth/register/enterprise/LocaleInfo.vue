@@ -1,6 +1,5 @@
 <script setup>
-import Input from "@/components/common/Input.vue";
-import Selector from "@/components/common/Selector.vue";
+import { Input, Selector} from "@/components"
 
 import City from "vue-material-design-icons/City.vue";
 import MapMarker from "vue-material-design-icons/MapMarker.vue";

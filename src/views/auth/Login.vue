@@ -1,6 +1,5 @@
 <script setup>
-import Banner from "@/components/auth/common/Banner.vue";
-import LoginForm from "@/components/auth/login/LoginForm.vue";
+import { Banner, LoginForm } from "@/components";
 </script>
 
 <template>
