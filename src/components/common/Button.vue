@@ -12,7 +12,7 @@ defineProps({
 
   onClick: {
     type: Function,
-    required: true,
+    required: false,
   },
 });
 </script>
@@ -20,10 +20,10 @@ defineProps({
 <template>
   <button @click="onClick"
     class="
-      md:w-48 md:h-6 md:text-base
-      lg:w-3xs lg:h-8 lg:text-lg
-      xl:w-2xs xl:h-10 xl:text-xl 
-      rounded-md"
+      md:w-48 md:min-h-6 md:text-base
+      lg:w-3xs lg:min-h-8 lg:text-lg
+      xl:w-2xs xl:min-h-10 xl:text-xl 
+      rounded-md cursor-pointer"
     :class="variant"
     >
     {{ text }}
@@ -37,9 +37,18 @@ defineProps({
   color: var(--blue);
 }
 
+.transparent:hover {
+  background-color: var(--blue);
+  color: var(--white)
+}
+
 .filled {
   background-color: var(--blue);
   border: none;
   color: var(--white);
+}
+
+.filled:hover {
+  background-color: var(--darker-blue);
 }
 </style>
