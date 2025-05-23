@@ -1,6 +1,4 @@
 <script setup>
-import { defineModel } from "vue";
-
 import ArrowRight from "vue-material-design-icons/ArrowRight.vue";
 import ArrowLeft from "vue-material-design-icons/ArrowLeft.vue";
 
@@ -30,16 +28,19 @@ const increment = () => {
 <template>
   <div>
     <!--Buttons-->
-    <div class="w-[50vw] flex justify-between px-2.5">
+    <div class="w-[50vw] flex px-2.5 justify-end">
       
       <!--Left button-->
-      <div
+      <div v-if="counter != 0"
         class="w-12 h-12 flex justify-center items-center bg-[var(--blue)] hover:bg-[var(--darker-blue)] text-[var(--white)] rounded-lg cursor-pointer"
         @click="decrement()">
 
         <ArrowLeft />
       </div>
       
+      <!--Spacer-->
+      <div v-if="counter != 0" class="flex-grow"></div>
+
       <!--Right button-->
       <div
         class="w-12 h-12 flex justify-center items-center bg-[var(--blue)] hover:bg-[var(--darker-blue)] text-[var(--white)] rounded-lg cursor-pointer"
