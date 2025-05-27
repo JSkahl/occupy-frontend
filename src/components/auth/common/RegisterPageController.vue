@@ -1,6 +1,7 @@
 <script setup>
 import ArrowRight from "vue-material-design-icons/ArrowRight.vue";
 import ArrowLeft from "vue-material-design-icons/ArrowLeft.vue";
+import Check from "vue-material-design-icons/Check.vue";
 
 const props = defineProps({
   counter: {
@@ -47,9 +48,19 @@ const increment = () => {
       <div
         class="w-12 h-12 flex justify-center items-center bg-[var(--blue)] hover:bg-[var(--darker-blue)] text-[var(--white)] rounded-lg cursor-pointer"
         @click="increment()"
+        v-if="counter < dots - 1"
       >
         <ArrowRight />
       </div>
+
+      <!--Submit button-->
+      <button
+        class="w-12 h-12 flex justify-center items-center bg-[var(--blue)] hover:bg-[var(--darker-blue)] text-[var(--white)] rounded-lg cursor-pointer"
+        type="submit"
+        v-if="counter === dots - 1"
+      >
+        <Check />
+      </button>
     </div>
 
     <!--Dots-->
