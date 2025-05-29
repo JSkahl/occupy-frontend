@@ -1,5 +1,5 @@
 <script setup>
-defineProps({
+ defineProps({
   label: {
     type: String,
     required: true,
@@ -24,9 +24,12 @@ defineProps({
     type: String,
     required: false,
   },
-});
 
-defineEmits(["update:modelValue"]);
+  errorMessage: {
+    type: String,
+    required: false
+  }
+});
 </script>
 
 <template>
@@ -34,17 +37,17 @@ defineEmits(["update:modelValue"]);
     <label class="text-[var(--blue)] pl-[1%]">{{ label }}</label>
 
     <div
-      class="flex justify-around border border-[var(--blue)] text-[var(--gray)] placeholder-[var(--gray)] rounded-md gap-1 pr-1 pl-1 w-52 h-6 md:w-64 md:h-8 lg:w-72 lg:h-10 xl:w-xs xl:h-12"
-    >
+      class="flex justify-around border border-[var(--blue)] text-[var(--gray)] placeholder-[var(--gray)] rounded-md gap-1 pr-1 pl-1 w-52 h-6 md:w-64 md:h-8 lg:w-72 lg:h-10 xl:w-xs xl:h-12">
       <component :is="icon" />
 
-      <input
-        @input="$emit('update:modelValue', $event.target.value)"
+      <input 
+        @input="$emit('update:modelValue', $event.target.value)" 
         :value="modelValue"
-        :placeholder="placeholder"
-        class="border-none focus:outline-none w-full h-full"
-      />
+        :placeholder="placeholder" class="border-none focus:outline-none w-full h-full" />
     </div>
+    <p v-if="errorMessage" class="absolute text-red-500 text-sm">
+      {{ errorMessage }}
+    </p>
   </div>
 </template>
 
