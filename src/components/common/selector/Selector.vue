@@ -26,7 +26,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:modelValue", "error"]);
+const emit = defineEmits(["update:modelValue", "invalid", "valid"]);
 
 const inputValue = ref("");
 const isDroped = ref(false);
@@ -41,21 +41,23 @@ const filteredOptions = computed(() => {
 
 const handleSelect = (option) => {
   inputValue.value = option;
-  isDroped.value = false;
   emit("update:modelValue", option);
   errorMessage.value = "";
   isDroped.value = false;
 };
 
 function validateInput() {
-  isDroped.value = false;
   const isValid = props.options.includes(inputValue.value);
   if (!isValid) {
-    emit("error", "Invalid selection");
+    emit("invalid");
     errorMessage.value = "Insira uma opção existente";
-  } 
+  } else {
+    emit("valid");
+  }
 
-  return isValid;
+  setTimeout(() => {
+    isDroped.value = false;
+  }, 200);
 }
 
 watch(inputValue, (val) => {
@@ -71,30 +73,20 @@ const dropMenu = () => {
   <div>
     <label class="text-[var(--blue)] pl-[1%]">{{ label }}</label>
     <div
-      class="flex justify-around border border-(--blue) text-(--gray) placeholder-(--gray) rounded-md gap-1 pr-1 pl-1 w-52 h-6 md:w-64 md:h-8 lg:w-72 lg:h-10 xl:w-xs xl:h-12"
-    >
+      class="flex justify-around border border-(--blue) text-(--gray) placeholder-(--gray) rounded-md gap-1 pr-1 pl-1 w-52 h-6 md:w-64 md:h-8 lg:w-72 lg:h-10 xl:w-xs xl:h-12">
       <component :is="icon" />
 
-      <input
-        type="text"
-        v-model="inputValue"
-        @focus="isDroped = !isDroped"
-        @blur="validateInput"
-        :placeholder="placeholder"
-        class="border-none focus:outline-none w-full h-full"
-      />
+      <input type="text" v-model="inputValue" @focus="dropMenu" @blur="validateInput" :placeholder="placeholder"
+        class="border-none focus:outline-none w-full h-full" />
 
       <span @click="dropMenu()" class="cursor-pointer target:rotate-180">
         <MenuDown />
       </span>
     </div>
-    <Dropdown
-      v-if="isDroped"
-      @select="handleSelect"
-      :options="filteredOptions"
-      class="z-50"
-    />
-    <p v-if="errorMessage" class="absolute text-red-500 text-sm">{{ errorMessage }}</p>
+    <Dropdown v-if="isDroped" @select="handleSelect" :options="filteredOptions" class="z-50" />
+    <p v-if="errorMessage" class="absolute text-red-500 text-sm">
+      {{ errorMessage }}
+    </p>
   </div>
 </template>
 
