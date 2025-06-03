@@ -1,11 +1,30 @@
 <script setup>
+import { computed, reactive, watch } from "vue"
 import { Input } from "@/components";
 
 import CardAccountDetails from "vue-material-design-icons/CardAccountDetails.vue";
 import Numeric from "vue-material-design-icons/Numeric.vue";
 
 defineProps(["modelValue"]);
-defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue", "isFormValid"]);
+
+const validations = reactive({
+  cnh: false,
+  rntrc: false,
+});
+
+const allValid = computed(() => {
+  return Object.values(validations).every(v => v);
+});
+
+watch(allValid, (val) => {
+  if (val) {
+    emit("isFormValid", true)
+  }
+  if (!val) {
+    emit("isFormValid", false)
+  }
+})
 </script>
 
 <template>
@@ -18,13 +37,17 @@ defineEmits(["update:modelValue"]);
       type="text"
       :icon="CardAccountDetails"
       v-model="modelValue.cnh"
+      @valid="validations.cnh = true"
+      @invalid="validations.cnh = false"
     />
     <Input
       label="Código RNTNC"
       placeholder="Insira o código RNTNC"
       type="text"
       :icon="Numeric"
-      v-model="modelValue.rntnc"
+      v-model="modelValue.rntrc"
+      @valid="validations.rntrc = true"
+      @invalid="validations.rntrc = false"
     />
   </div>
 </template>

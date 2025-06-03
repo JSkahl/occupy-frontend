@@ -3,13 +3,11 @@ import { Input, PasswordInput } from "@/components";
 import { computed, reactive, ref, watch } from "vue";
 import Account from "vue-material-design-icons/Account.vue";
 
-defineProps(["modelValue"]);
+const props = defineProps(["modelValue"]);
 const emit = defineEmits(["update:modelValue", "isFormValid"]);
 
-const modelValue = reactive({
-  email: '',
+const confirmFields = reactive({
   confirmEmail: '',
-  senha: '',
   confirmSenha: '',
 });
 
@@ -21,7 +19,7 @@ const validations = reactive({
 });
 
 const checkEmailParity = computed(() => {
-  if (modelValue.confirmEmail && modelValue.email != modelValue.confirmEmail) {
+  if (confirmFields.confirmEmail && props.modelValue.email != confirmFields.confirmEmail) {
     return 'Os emails não coincidem';
   } else {
     return '';
@@ -29,7 +27,7 @@ const checkEmailParity = computed(() => {
 })
 
 const checkPasswordParity = computed(() => {
-  if (modelValue.confirmSenha && modelValue.senha != modelValue.confirmSenha) {
+  if (confirmFields.confirmSenha && props.modelValue.senha != confirmFields.confirmSenha) {
     return 'As senhas não coincidem';
   } else {
     return '';
@@ -65,7 +63,7 @@ watch(allValid, (val) => {
       label="Confirmar e-mail"
       type="email"
       placeholder="Confirme o seu email..."
-      v-model="modelValue.confirmEmail"
+      v-model="confirmFields.confirmEmail"
       :icon="Account"
       :differentFieldMessage="checkEmailParity"
       @valid-email="validations.confirmEmail = true"
@@ -83,7 +81,7 @@ watch(allValid, (val) => {
     <PasswordInput
       label="Confirmar senha"
       placeholder="Confirme a sua senha..."
-      v-model="modelValue.confirmSenha"
+      v-model="confirmFields.confirmSenha"
       :differentFieldMessage="checkPasswordParity" 
       @valid-password="validations.confirmSenha = true"
       @invalid-password="validations.confirmSenha = false"
