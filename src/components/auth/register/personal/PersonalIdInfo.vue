@@ -1,15 +1,10 @@
 <script setup>
 import { Input, PasswordInput } from "@/components";
-import { computed, reactive, ref, watch } from "vue";
+import { computed, reactive, watch } from "vue";
 import Account from "vue-material-design-icons/Account.vue";
+import { usePersonalRegisterForm } from "@/stores";
 
-const props = defineProps(["modelValue"]);
-const emit = defineEmits(["update:modelValue", "isFormValid"]);
-
-const confirmFields = reactive({
-  confirmEmail: '',
-  confirmSenha: '',
-});
+const form = usePersonalRegisterForm();
 
 const validations = reactive({
   email: false,
@@ -19,33 +14,43 @@ const validations = reactive({
 });
 
 const checkEmailParity = computed(() => {
-  if (confirmFields.confirmEmail && props.modelValue.email != confirmFields.confirmEmail) {
-    return 'Os emails não coincidem';
+  let message = "";
+  if (
+    form.extraFields.confirmEmail &&
+    form.formData.personalIdInfo.email != form.extraFields.confirmEmail
+  ) {
+    message = "Os emails não coincidem";
+    form.formData.personalIdInfo.emailValido = false;
   } else {
-    return '';
+    message = "";
+    form.formData.personalIdInfo.emailValido = true;
   }
-})
 
-const checkPasswordParity = computed(() => {
-  if (confirmFields.confirmSenha && props.modelValue.senha != confirmFields.confirmSenha) {
-    return 'As senhas não coincidem';
-  } else {
-    return '';
-  }
-})
-
-const allValid = computed(() => {
-  return Object.values(validations).every(v => v);
+  return message;
 });
 
-watch(allValid, (val) => {
-  if (val) {
-    emit("isFormValid", true)
+const checkPasswordParity = computed(() => {
+  if (
+    form.extraFields.confirmSenha &&
+    form.formData.personalIdInfo.senha != form.extraFields.confirmSenha
+  ) {
+    return "As senhas não coincidem";
+  } else {
+    return "";
   }
-  if (!val) {
-    emit("isFormValid", false)
-  }
-})
+});
+
+watch(
+  () => Object.values(validations),
+  (val) => {
+    const allValid = val.every(Boolean);
+    if (allValid) {
+      form.validForms.personalIdInfo = true;
+    } else {
+      form.validForms.personalIdInfo = false;
+    }
+  },
+);
 </script>
 
 <template>
@@ -55,37 +60,37 @@ watch(allValid, (val) => {
       label="E-mail"
       type="email"
       placeholder="Insira o seu email..."
-      v-model="modelValue.email"
+      v-model="form.formData.personalIdInfo.email"
       @valid-email="validations.email = true"
       @invalid-email="validations.email = false"
     />
+
     <Input
       label="Confirmar e-mail"
       type="email"
       placeholder="Confirme o seu email..."
-      v-model="confirmFields.confirmEmail"
+      v-model="form.extraFields.confirmEmail"
       :icon="Account"
       :differentFieldMessage="checkEmailParity"
       @valid-email="validations.confirmEmail = true"
       @invalid-email="validations.confirmEmail = false"
-
     />
 
     <PasswordInput
       label="Senha"
       placeholder="Insira a sua senha..."
-      v-model="modelValue.senha"
+      v-model="form.formData.personalIdInfo.senha"
       @valid-password="validations.senha = true"
       @invalid-password="validations.senha = false"
     />
+
     <PasswordInput
       label="Confirmar senha"
       placeholder="Confirme a sua senha..."
-      v-model="confirmFields.confirmSenha"
-      :differentFieldMessage="checkPasswordParity" 
+      v-model="form.extraFields.confirmSenha"
+      :differentFieldMessage="checkPasswordParity"
       @valid-password="validations.confirmSenha = true"
       @invalid-password="validations.confirmSenha = false"
-
     />
   </div>
 </template>

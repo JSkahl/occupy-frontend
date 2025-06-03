@@ -1,21 +1,20 @@
 <script setup>
-import { reactive, computed, watch } from "vue";
+import { reactive, watch } from "vue";
 
 import { Input, Selector } from "@/components";
-
 import Account from "vue-material-design-icons/Account.vue";
 import CircleOutline from "vue-material-design-icons/CircleOutline.vue";
 import Phone from "vue-material-design-icons/Phone.vue";
+import { usePersonalRegisterForm } from "@/stores";
 
-defineProps(["modelValue"]);
-const emit = defineEmits(["update:modelValue", "isFormValid"]);
+const form = usePersonalRegisterForm();
 
 const genders = [
-  "Feminino",
-  "Masculino",
-  "Não binário",
-  "Prefiro não responder",
-  "Outro",
+  { name: "Feminino" },
+  { name: "Masculino" },
+  { name: "Não binário" },
+  { name: "Prefiro não responder" },
+  { name: "Outro" },
 ];
 
 const validations = reactive({
@@ -25,18 +24,17 @@ const validations = reactive({
   numero: false,
 });
 
-const allValid = computed(() => {
-  return Object.values(validations).every(v => v);
-});
-
-watch(allValid, (val) => {
-  if (val) {
-    emit("isFormValid", true)
-  }
-  if (!val) {
-    emit("isFormValid", false)
-  }
-})
+watch(
+  () => Object.values(validations),
+  (val) => {
+    const allValid = val.every(Boolean);
+    if (allValid) {
+      form.validForms.personalInfo = true;
+    } else {
+      form.validForms.personalInfo = false;
+    }
+  },
+);
 </script>
 
 <template>
@@ -47,7 +45,7 @@ watch(allValid, (val) => {
       placeholder="Insira o seu nome..."
       type="text"
       :icon="Account"
-      v-model="modelValue.nome"
+      v-model="form.formData.personalInfo.nome"
       @valid="validations.nome = true"
       @invalid="validations.nome = false"
     />
@@ -55,8 +53,9 @@ watch(allValid, (val) => {
       label="Gênero"
       placeholder="Insira o seu gênero..."
       :icon="CircleOutline"
-      v-model="modelValue.genero"
+      v-model="form.formData.personalInfo.genero"
       :options="genders"
+      labelField="name"
       @valid="validations.genero = true"
       @invalid="validations.genero = false"
     />
@@ -65,7 +64,7 @@ watch(allValid, (val) => {
       placeholder="Insira o seu CPF..."
       type="text"
       :icon="Account"
-      v-model="modelValue.documento"
+      v-model="form.formData.personalInfo.documento"
       @valid="validations.documento = true"
       @invalid="validations.documento = false"
     />
@@ -74,7 +73,7 @@ watch(allValid, (val) => {
       placeholder="Insira o seu número..."
       type="tel"
       :icon="Phone"
-      v-model="modelValue.numero"
+      v-model="form.formData.personalInfo.numero"
       @valid="validations.numero = true"
       @invalid="validations.numero = false"
     />

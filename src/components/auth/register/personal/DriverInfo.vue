@@ -1,30 +1,29 @@
 <script setup>
-import { computed, reactive, watch } from "vue"
+import { reactive, watch } from "vue"
 import { Input } from "@/components";
+import { usePersonalRegisterForm } from "@/stores";
 
 import CardAccountDetails from "vue-material-design-icons/CardAccountDetails.vue";
 import Numeric from "vue-material-design-icons/Numeric.vue";
 
-defineProps(["modelValue"]);
-const emit = defineEmits(["update:modelValue", "isFormValid"]);
+const form = usePersonalRegisterForm();
 
 const validations = reactive({
   cnh: false,
   rntrc: false,
 });
 
-const allValid = computed(() => {
-  return Object.values(validations).every(v => v);
-});
-
-watch(allValid, (val) => {
-  if (val) {
-    emit("isFormValid", true)
-  }
-  if (!val) {
-    emit("isFormValid", false)
-  }
-})
+watch(
+  () => Object.values(validations),
+  (val) => {
+    const allValid = val.every(Boolean);
+    if (allValid) {
+      form.validForms.driverInfo = true;
+    } else {
+      form.validForms.driverInfo = false;
+    }
+  },
+);
 </script>
 
 <template>
@@ -36,7 +35,7 @@ watch(allValid, (val) => {
       placeholder="Insira o número da sua CNH"
       type="text"
       :icon="CardAccountDetails"
-      v-model="modelValue.cnh"
+      v-model="form.formData.driverInfo.cnh"
       @valid="validations.cnh = true"
       @invalid="validations.cnh = false"
     />
@@ -45,7 +44,7 @@ watch(allValid, (val) => {
       placeholder="Insira o código RNTNC"
       type="text"
       :icon="Numeric"
-      v-model="modelValue.rntrc"
+      v-model="form.formData.driverInfo.rntrc"
       @valid="validations.rntrc = true"
       @invalid="validations.rntrc = false"
     />
