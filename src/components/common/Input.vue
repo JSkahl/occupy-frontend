@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { isEmail } from "@/utils/credentialsValidator.js";
+import { isEmail } from "@/utils";
 
 const props = defineProps({
   label: {

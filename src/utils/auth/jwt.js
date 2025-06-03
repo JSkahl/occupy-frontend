@@ -1,6 +1,6 @@
 import { SignJWT } from "jose";
 
-async function generateJWT(payload, secretKey) {
+export async function generateJWT(payload, secretKey) {
 	const secret = new TextEncoder().encode(secretKey);
 
 	const jwt = await new SignJWT(payload)
@@ -11,5 +11,3 @@ async function generateJWT(payload, secretKey) {
 
 	return jwt;
 }
-
-export default generateJWT;

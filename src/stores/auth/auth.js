@@ -1,8 +1,8 @@
-import { defineStore } from "pinia";
 import { ref } from "vue";
-import { hashPassword } from "@/utils/hasher";
-import generateJWT from "@/utils/jwt";
-import AuthService from "@/services/auth";
+import { defineStore } from "pinia";
+
+import { hashPassword, generateJWT } from "@/utils";
+import { AuthService } from "@/services";
 
 export const useAuthStore = defineStore("auth", () => {
   const secret = import.meta.env.JWT_SECRET_KEY
@@ -16,9 +16,12 @@ export const useAuthStore = defineStore("auth", () => {
 
     try {
       const data = await AuthService.login(token)
+
       jwt.value = data.jwt
       email.value = data.email
       password.value = data.password
+
+      localStorage.setItem('token', data.jwt)
       console.log('Login sucedido')
     } catch (error) {
       console.error('Login mau sucedido na store: ', error)
@@ -29,6 +32,7 @@ export const useAuthStore = defineStore("auth", () => {
     jwt.value = null
     email.value = null
     password.value = null
+    localStorage.removeItem('token')
   }
 
   function isAuth() {

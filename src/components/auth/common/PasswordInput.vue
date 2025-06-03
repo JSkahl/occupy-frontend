@@ -3,7 +3,7 @@ import { ref } from "vue";
 import Eye from "vue-material-design-icons/Eye.vue";
 import EyeClosed from "vue-material-design-icons/EyeClosed.vue";
 import Lock from "vue-material-design-icons/Lock.vue";
-import { isPasswordStrong } from "@/utils/credentialsValidator";
+import { isPasswordStrong } from "@/utils";
 
 const isVisible = ref(false);
 
