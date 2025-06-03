@@ -13,9 +13,20 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+
+  pageValidation: {
+    type: Object,
+    required: false,
+  },
+
+  currentPage: {
+    type: Boolean,
+    required: false,
+  },
 });
 
 let counter = defineModel("counter");
+const emit = defineEmits(['incremented'])
 
 const decrement = () => {
   counter.value <= 0 ? (counter.value = 0) : counter.value--;
@@ -25,6 +36,7 @@ const increment = () => {
   counter.value >= props.dots - 1
     ? (counter.value = props.dots - 1)
     : counter.value++;
+  emit('incremented')
 };
 </script>
 
@@ -45,13 +57,14 @@ const increment = () => {
       <div v-if="counter != 0" class="flex-grow"></div>
 
       <!--Right button-->
-      <div
+      <button
         class="w-12 h-12 flex justify-center items-center bg-[var(--blue)] hover:bg-[var(--darker-blue)] text-[var(--white)] rounded-lg cursor-pointer"
         @click="increment()"
         v-if="counter < dots - 1"
+        :disabled="!currentPage"
       >
         <ArrowRight />
-      </div>
+      </button>
 
       <!--Submit button-->
       <button
@@ -72,6 +85,10 @@ const increment = () => {
       ></div>
     </div>
   </div>
+  b:
+  {{ pageValidation[counter] }}
+  a:
+  {{ currentPage }}
 </template>
 
 <style scoped>

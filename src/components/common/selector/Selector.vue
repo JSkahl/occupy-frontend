@@ -44,6 +44,7 @@ const handleSelect = (option) => {
   emit("update:modelValue", option);
   errorMessage.value = "";
   isDroped.value = false;
+  validateInput()
 };
 
 function validateInput() {
@@ -60,10 +61,6 @@ function validateInput() {
   }, 200);
 }
 
-watch(inputValue, (val) => {
-  emit("update:modelValue", val);
-});
-
 const dropMenu = () => {
   isDroped.value = !isDroped.value;
 };
@@ -76,7 +73,7 @@ const dropMenu = () => {
       class="flex justify-around border border-(--blue) text-(--gray) placeholder-(--gray) rounded-md gap-1 pr-1 pl-1 w-52 h-6 md:w-64 md:h-8 lg:w-72 lg:h-10 xl:w-xs xl:h-12">
       <component :is="icon" />
 
-      <input type="text" v-model="inputValue" @focus="dropMenu" @blur="validateInput" :placeholder="placeholder"
+      <input type="text" @input="emit('modelValue', $event.target.value)" :value="inputValue" @focus="dropMenu" @blur="validateInput" :placeholder="placeholder"
         class="border-none focus:outline-none w-full h-full" />
 
       <span @click="dropMenu()" class="cursor-pointer target:rotate-180">
