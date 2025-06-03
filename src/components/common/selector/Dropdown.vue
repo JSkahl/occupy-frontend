@@ -3,6 +3,11 @@ const props = defineProps({
   options: {
     type: Array,
     required: true,
+  },  
+
+  labelField: {
+    type: String,
+    default: "name",
   },
 });
 </script>
@@ -13,11 +18,11 @@ const props = defineProps({
   >
     <option
       v-for="option in options"
-      :key="option"
+      :key="option.id || option[labelField]"
       @click="$emit('select', option)"
       class="hover:bg-(--light-white)"
     >
-      {{ option }}
+      {{ option[labelField] }}
     </option>
   </div>
 </template>
