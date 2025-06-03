@@ -2,97 +2,112 @@ import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
 
 export const usePersonalRegisterForm = defineStore(
-  "personalRegisterForm",
-  () => {
-    const currentPage = ref(1);
-    const totalPages = ref(4);
-    const isDriver = ref(false);
+	"personalRegisterForm",
+	() => {
+		const currentPage = ref(1);
+		const totalPages = ref(4);
+		const isDriver = ref(false);
 
-    function enableDriverPage() {
-      if (isDriver) {
-        return totalPages++;
-      }
-    }
-    
-    const validForms = reactive({
-      personalIdInfo: false,
-      personalInfo: false,
-      enterpriseInfo: false,
-      driverInfo: false,
-    });
+		function enableDriverPage() {
+			if (isDriver) {
+				return totalPages++;
+			} else {
+				return (totalPages.value = 4);
+			}
+		}
 
-    const extraFields = reactive({
-      confirmEmail: "",
-      confirmSenha: "",
-    });
+		const validForms = reactive({
+			personalIdInfo: false,
+			personalInfo: false,
+			enterpriseInfo: false,
+			driverInfo: false,
+		});
 
-    const formData = reactive({
-      personalIdInfo: {
-        email: "",
-        emailValido: false,
-        senha: "",
-      },
+		const pageKeys = [
+			"personalIdInfo",
+			"personalInfo",
+			"enterpriseInfo",
+			"driverInfo",
+		];
 
-      personalInfo: {
-        nome: "",
-        genero: "",
-        documento: "",
-        numero: "",
-      },
+		function isCurrentFormValid() {
+			const key = pageKeys[currentPage.value - 1];
+			return validForms[key];
+		};
 
-      enterpriseInfo: {
-        cidadeResidencia: {},
-        empresaAfiliada: "",
-        setorEmpresa: "",
-      },
+		const extraFields = reactive({
+			confirmEmail: "",
+			confirmSenha: "",
+		});
 
-      driverInfo: {
-        cnh: "",
-        rntrc: "",
-      },
-    });
+		const formData = reactive({
+			personalIdInfo: {
+				email: "",
+				emailValido: false,
+				senha: "",
+			},
 
-    function nextPage() {
-      if (currentPage.value >= totalPages.value) {
-        currentPage.value = totalPages.value;
-      } else {
-        currentPage.value++;
-      }
-    }
+			personalInfo: {
+				nome: "",
+				genero: "",
+				documento: "",
+				numero: "",
+			},
 
-    function previousPage() {
-      if (currentPage.value <= 1) {
-        currentPage.value = 1;
-      } else {
-        currentPage.value--;
-      }
-    }
+			enterpriseInfo: {
+				cidadeResidencia: {},
+				empresaAfiliada: "",
+				setorEmpresa: "",
+			},
 
-    function resetForm() {
-      for (key in formData) {
-        const page = formData[key];
-        for (field in page) {
-          if (typeof page[field] === "string") {
-            page[field] = "";
-          }
-          if (typeof page[field] === "object") {
-            page[field] = {};
-          }
-        }
-      }
-      currentPage.value = 1
-    }
+			driverInfo: {
+				cnh: "",
+				rntrc: "",
+			},
+		});
 
-    return {
-      currentPage,
-      totalPages,
-      nextPage,
-      previousPage,
-      formData,
-      resetForm,
-      enableDriverPage,
-      validForms,
-      extraFields,
-    };
-  },
+		function nextPage() {
+			if (currentPage.value >= totalPages.value) {
+				currentPage.value = totalPages.value;
+			} else {
+				currentPage.value++;
+			}
+		}
+
+		function previousPage() {
+			if (currentPage.value <= 1) {
+				currentPage.value = 1;
+			} else {
+				currentPage.value--;
+			}
+		}
+
+		function resetForm() {
+			for (key in formData) {
+				const page = formData[key];
+				for (field in page) {
+					if (typeof page[field] === "string") {
+						page[field] = "";
+					}
+					if (typeof page[field] === "object") {
+						page[field] = {};
+					}
+				}
+			}
+			currentPage.value = 1;
+		}
+
+		return {
+			currentPage,
+			totalPages,
+			nextPage,
+			previousPage,
+			formData,
+			resetForm,
+			enableDriverPage,
+			validForms,
+			extraFields,
+			isCurrentFormValid,
+		};
+	},
 );
