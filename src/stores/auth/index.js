@@ -1,3 +1,4 @@
 import { useAuthStore } from "./auth";
+import { usePersonalRegisterForm } from "./personalRegisterForm";
 
-export { useAuthStore };
+export { useAuthStore, usePersonalRegisterForm };

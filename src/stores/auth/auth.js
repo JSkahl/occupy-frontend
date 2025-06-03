@@ -2,7 +2,7 @@ import { ref } from "vue";
 import { defineStore } from "pinia";
 
 import { hashPassword, generateJWT } from "@/utils";
-import { AuthService } from "@/services";
+import AuthService from "@/services/auth";
 
 export const useAuthStore = defineStore("auth", () => {
   const secret = import.meta.env.JWT_SECRET_KEY
