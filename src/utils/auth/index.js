@@ -1,4 +1,4 @@
 import { hashPassword } from "./hasher";
-import { generateJWT } from "./jwt";
+import signJWT from "./jwt";
 
-export { hashPassword, generateJWT };
+export { hashPassword, signJWT };
