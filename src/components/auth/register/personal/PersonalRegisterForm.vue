@@ -1,6 +1,4 @@
 <script setup>
-import { ref } from "vue";
-
 import {
   Title,
   PersonalIdInfo,
@@ -9,21 +7,45 @@ import {
   DriverInfo,
   RegisterPageController,
 } from "@/components";
+import { usePersonalRegisterForm } from "@/stores";
+import { ref } from "vue";
+import createUser from "@/services/auth/user";
+import { hashPassword } from "@/utils";
 
-let counter = ref(0);
+const form = usePersonalRegisterForm();
+const loading = ref(false);
+const error = ref(null);
+
+async function submitForm() {
+  form.formData.senha = hashPassword(form.formData.senha);
+  loading.value = true;
+  error.value = null;
+  try {
+    const user = await createUser(form.formData);
+    console.log("Criou", user);
+  } catch (err) {
+    console.error(err);
+  } finally {
+    loading.value = false;
+    form.resetForm();
+  }
+}
 </script>
 
 <template>
-  <div class="w-[50vw] h-screen flex flex-col justify-between">
+  <form
+    class="w-[50vw] h-screen flex flex-col justify-between"
+    @submit.prevent="submitForm"
+  >
     <Title text="Cadastro Pessoal" :size="1" class="pl-6 pt-6" />
 
     <!--Pages-->
-    <PersonalIdInfo v-if="counter == 0" />
-    <PersonalInfo v-if="counter == 1" />
-    <EnterpriseInfo v-if="counter == 2" />
-    <DriverInfo v-if="counter == 3" />
+    <PersonalIdInfo v-if="form.currentPage === 1" />
+    <PersonalInfo v-if="form.currentPage === 2" />
+    <EnterpriseInfo v-if="form.currentPage === 3" />
+    <DriverInfo v-if="form.currentPage === 4" />
 
     <!--Page controller-->
-    <RegisterPageController :dots="4" v-model:counter="counter" />
-  </div>
+    <RegisterPageController />
+  </form>
 </template>

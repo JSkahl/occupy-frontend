@@ -1,30 +1,10 @@
 <script setup>
 import ArrowRight from "vue-material-design-icons/ArrowRight.vue";
 import ArrowLeft from "vue-material-design-icons/ArrowLeft.vue";
+import Check from "vue-material-design-icons/Check.vue";
+import { usePersonalRegisterForm } from "@/stores";
 
-const props = defineProps({
-  counter: {
-    type: Number,
-    required: true,
-  },
-
-  dots: {
-    type: Number,
-    required: true,
-  },
-});
-
-let counter = defineModel("counter");
-
-const decrement = () => {
-  counter.value <= 0 ? (counter.value = 0) : counter.value--;
-};
-
-const increment = () => {
-  counter.value >= props.dots - 1
-    ? (counter.value = props.dots - 1)
-    : counter.value++;
-};
+const form = usePersonalRegisterForm();
 </script>
 
 <template>
@@ -33,31 +13,43 @@ const increment = () => {
     <div class="w-[50vw] flex px-2.5 justify-end">
       <!--Left button-->
       <div
-        v-if="counter != 0"
+        v-if="form.currentPage != 1"
         class="w-12 h-12 flex justify-center items-center bg-[var(--blue)] hover:bg-[var(--darker-blue)] text-[var(--white)] rounded-lg cursor-pointer"
-        @click="decrement()"
+        @click="form.previousPage"
       >
         <ArrowLeft />
       </div>
 
       <!--Spacer-->
-      <div v-if="counter != 0" class="flex-grow"></div>
+      <div v-if="form.currentPage != 1" class="flex-grow"></div>
 
       <!--Right button-->
-      <div
+      <button
         class="w-12 h-12 flex justify-center items-center bg-[var(--blue)] hover:bg-[var(--darker-blue)] text-[var(--white)] rounded-lg cursor-pointer"
-        @click="increment()"
+        @click="form.nextPage"
+        v-if="form.currentPage < form.totalPages"
+        :disabled="!form.isCurrentFormValid()"
       >
         <ArrowRight />
-      </div>
+      </button>
+
+      <!--Submit button-->
+      <button
+        class="w-12 h-12 flex justify-center items-center bg-[var(--blue)] hover:bg-[var(--darker-blue)] text-[var(--white)] rounded-lg cursor-pointer"
+        type="submit"
+        v-if="form.currentPage === form.totalPages"
+        :disabled="!form.isCurrentFormValid()"
+      >
+        <Check />
+      </button>
     </div>
 
     <!--Dots-->
     <div class="w-[50vw] h-12 px-[40%] flex justify-between items-center">
       <div
-        v-for="dot in dots"
+        v-for="page in form.totalPages"
         class="w-4 h-4 rounded-full shadow-[0_4px_3px_rgba(0,0,0,0.25)]"
-        :class="[counter === dot - 1 ? 'selected' : 'not-selected']"
+        :class="[form.currentPage === page ? 'selected' : 'not-selected']"
       ></div>
     </div>
   </div>
