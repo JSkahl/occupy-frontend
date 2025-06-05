@@ -1,37 +1,21 @@
 <script setup>
 import { ref, computed, watch } from "vue";
-
 import MenuDown from "vue-material-design-icons/MenuDown.vue";
 import { Dropdown } from "@/components";
 
 const props = defineProps({
-  label: {
-    type: String,
-    required: true,
-  },
-
-  placeholder: {
-    type: String,
-    required: true,
-  },
-
-  icon: {
-    type: Object,
-    required: false,
-  },
-
-  options: {
-    type: Array,
-    required: false,
-  },
-
-  modelValue: {
-    type: [String, Object],
-  },
-
+  label: String,
+  placeholder: String,
+  icon: Object,
+  options: Array,
+  modelValue: [String, Object],
   labelField: {
     type: String,
     default: "name",
+  },
+  returnObject: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -39,8 +23,8 @@ const emit = defineEmits(["update:modelValue", "invalid", "valid"]);
 
 const inputValue = ref(
   typeof props.modelValue === "object"
-    ? (props.modelValue?.[props.labelField] ?? "")
-    : props.modelValue || "",
+    ? props.modelValue?.[props.labelField] ?? ""
+    : props.modelValue || ""
 );
 const isDroped = ref(false);
 const errorMessage = ref("");
@@ -56,7 +40,10 @@ const filteredOptions = computed(() => {
 
 const handleSelect = (option) => {
   inputValue.value = option[props.labelField];
-  emit("update:modelValue", option);
+
+  const valueToEmit = props.returnObject ? option : option[props.labelField];
+  emit("update:modelValue", valueToEmit);
+
   errorMessage.value = "";
   isDroped.value = false;
   validateInput(option);
@@ -65,8 +52,9 @@ const handleSelect = (option) => {
 function validateInput(option = null) {
   const isValid = props.options.some(
     (opt) =>
-      opt[props.labelField].toLowerCase() === inputValue.value.toLowerCase(),
+      opt[props.labelField].toLowerCase() === inputValue.value.toLowerCase()
   );
+
   if (!isValid) {
     emit("invalid");
     errorMessage.value = "Insira uma opção existente";
@@ -87,11 +75,8 @@ const dropMenu = () => {
 <template>
   <div>
     <label class="text-[var(--blue)] pl-[1%]">{{ label }}</label>
-    <div
-      class="flex justify-around border border-(--blue) text-(--gray) placeholder-(--gray) rounded-md gap-1 pr-1 pl-1 w-52 h-6 md:w-64 md:h-8 lg:w-72 lg:h-10 xl:w-xs xl:h-12"
-    >
+    <div class="flex justify-around border border-(--blue) text-(--gray) placeholder-(--gray) rounded-md gap-1 pr-1 pl-1 w-52 h-6 md:w-64 md:h-8 lg:w-72 lg:h-10 xl:w-xs xl:h-12">
       <component :is="icon" />
-
       <input
         type="text"
         :value="inputValue"
@@ -101,8 +86,7 @@ const dropMenu = () => {
         :placeholder="placeholder"
         class="border-none focus:outline-none w-full h-full"
       />
-
-      <span @click="dropMenu()" class="cursor-pointer target:rotate-180">
+      <span @click="dropMenu()" class="cursor-pointer">
         <MenuDown />
       </span>
     </div>
