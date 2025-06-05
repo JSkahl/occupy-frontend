@@ -8,13 +8,35 @@ import {
   RegisterPageController,
 } from "@/components";
 import { usePersonalRegisterForm } from "@/stores";
+import { ref } from "vue";
+import createUser from "@/services/auth/user";
+import { hashPassword } from "@/utils";
 
 const form = usePersonalRegisterForm();
+const loading = ref(false);
+const error = ref(null);
 
+async function submitForm() {
+  form.formData.senha = hashPassword(form.formData.senha);
+  loading.value = true;
+  error.value = null;
+  try {
+    const user = await createUser(form.formData);
+    console.log("Criou", user);
+  } catch (err) {
+    console.error(err);
+  } finally {
+    loading.value = false;
+    form.resetForm();
+  }
+}
 </script>
 
 <template>
-  <form class="w-[50vw] h-screen flex flex-col justify-between" @submit.prevent="submitForm">
+  <form
+    class="w-[50vw] h-screen flex flex-col justify-between"
+    @submit.prevent="submitForm"
+  >
     <Title text="Cadastro Pessoal" :size="1" class="pl-6 pt-6" />
 
     <!--Pages-->

@@ -33,38 +33,27 @@ export const usePersonalRegisterForm = defineStore(
 		function isCurrentFormValid() {
 			const key = pageKeys[currentPage.value - 1];
 			return validForms[key];
-		};
+		}
 
 		const extraFields = reactive({
 			confirmEmail: "",
 			confirmSenha: "",
 		});
 
-		const formData = reactive({
-			personalIdInfo: {
-				email: "",
-				emailValido: false,
-				senha: "",
-			},
-
-			personalInfo: {
-				nome: "",
-				genero: "",
-				documento: "",
-				numero: "",
-			},
-
-			enterpriseInfo: {
-				cidadeResidencia: {},
-				empresaAfiliada: "",
-				setorEmpresa: "",
-			},
-
-			driverInfo: {
-				cnh: "",
-				rntrc: "",
-			},
-		});
+const formData = reactive({
+  celular: "",
+  cidadeResidencia: {},
+  cnh: "",
+  documento: "",
+  email: "",
+  emailValido: false,
+  empresaAfiliada: "",
+  genero: "",
+  nome: "",
+  rntrc: "",
+  senha: "",
+  setorEmpresa: ""
+});
 
 		function nextPage() {
 			if (currentPage.value >= totalPages.value) {
@@ -83,18 +72,28 @@ export const usePersonalRegisterForm = defineStore(
 		}
 
 		function resetForm() {
-			for (key in formData) {
-				const page = formData[key];
-				for (field in page) {
-					if (typeof page[field] === "string") {
-						page[field] = "";
-					}
-					if (typeof page[field] === "object") {
-						page[field] = {};
-					}
-				}
-			}
+			formData.email = "";
+			formData.emailValido = false;
+			formData.senha = "";
+			formData.nome = "";
+			formData.genero = "";
+			formData.documento = "";
+			formData.celular = "";
+			formData.cidadeResidencia = {}; // Reset to empty object
+			formData.empresaAfiliada = "";
+			formData.setorEmpresa = "";
+			formData.cnh = "";
+			formData.rntrc = "";
+      extraFields.confirmEmail = "";
+      extraFields.confirmSenha = "";
+      validForms.personalIdInfo = false;
+      validForms.personalInfo = false;
+      validForms.enterpriseInfo = false;
+      validForms.driverInfo = false;
+
 			currentPage.value = 1;
+      isDriver.value = false;
+      isCurrentFormValid();
 		}
 
 		return {

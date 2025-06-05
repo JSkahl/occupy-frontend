@@ -35,7 +35,7 @@ watch(
       placeholder="Insira o número da sua CNH"
       type="text"
       :icon="CardAccountDetails"
-      v-model="form.formData.driverInfo.cnh"
+      v-model="form.formData.cnh"
       @valid="validations.cnh = true"
       @invalid="validations.cnh = false"
     />
@@ -44,7 +44,7 @@ watch(
       placeholder="Insira o código RNTNC"
       type="text"
       :icon="Numeric"
-      v-model="form.formData.driverInfo.rntrc"
+      v-model="form.formData.rntrc"
       @valid="validations.rntrc = true"
       @invalid="validations.rntrc = false"
     />

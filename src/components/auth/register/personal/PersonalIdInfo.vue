@@ -17,13 +17,13 @@ const checkEmailParity = computed(() => {
   let message = "";
   if (
     form.extraFields.confirmEmail &&
-    form.formData.personalIdInfo.email != form.extraFields.confirmEmail
+    form.formData.email != form.extraFields.confirmEmail
   ) {
     message = "Os emails não coincidem";
-    form.formData.personalIdInfo.emailValido = false;
+    form.formData.emailValido = false;
   } else {
     message = "";
-    form.formData.personalIdInfo.emailValido = true;
+    form.formData.emailValido = true;
   }
 
   return message;
@@ -32,7 +32,7 @@ const checkEmailParity = computed(() => {
 const checkPasswordParity = computed(() => {
   if (
     form.extraFields.confirmSenha &&
-    form.formData.personalIdInfo.senha != form.extraFields.confirmSenha
+    form.formData.senha != form.extraFields.confirmSenha
   ) {
     return "As senhas não coincidem";
   } else {
@@ -60,7 +60,7 @@ watch(
       label="E-mail"
       type="email"
       placeholder="Insira o seu email..."
-      v-model="form.formData.personalIdInfo.email"
+      v-model="form.formData.email"
       @valid-email="validations.email = true"
       @invalid-email="validations.email = false"
     />
@@ -79,7 +79,7 @@ watch(
     <PasswordInput
       label="Senha"
       placeholder="Insira a sua senha..."
-      v-model="form.formData.personalIdInfo.senha"
+      v-model="form.formData.senha"
       @valid-password="validations.senha = true"
       @invalid-password="validations.senha = false"
     />

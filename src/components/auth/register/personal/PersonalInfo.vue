@@ -21,7 +21,7 @@ const validations = reactive({
   nome: false,
   genero: false,
   documento: false,
-  numero: false,
+  celular: false,
 });
 
 watch(
@@ -45,7 +45,7 @@ watch(
       placeholder="Insira o seu nome..."
       type="text"
       :icon="Account"
-      v-model="form.formData.personalInfo.nome"
+      v-model="form.formData.nome"
       @valid="validations.nome = true"
       @invalid="validations.nome = false"
     />
@@ -53,7 +53,7 @@ watch(
       label="Gênero"
       placeholder="Insira o seu gênero..."
       :icon="CircleOutline"
-      v-model="form.formData.personalInfo.genero"
+      v-model="form.formData.genero"
       :options="genders"
       labelField="name"
       @valid="validations.genero = true"
@@ -64,7 +64,7 @@ watch(
       placeholder="Insira o seu CPF..."
       type="text"
       :icon="Account"
-      v-model="form.formData.personalInfo.documento"
+      v-model="form.formData.documento"
       @valid="validations.documento = true"
       @invalid="validations.documento = false"
     />
@@ -73,9 +73,9 @@ watch(
       placeholder="Insira o seu número..."
       type="tel"
       :icon="Phone"
-      v-model="form.formData.personalInfo.numero"
-      @valid="validations.numero = true"
-      @invalid="validations.numero = false"
+      v-model="form.formData.celular"
+      @valid="validations.celular = true"
+      @invalid="validations.celular = false"
     />
   </div>
 </template>
