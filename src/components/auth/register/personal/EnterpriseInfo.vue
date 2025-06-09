@@ -63,6 +63,13 @@ watch(
     } else {
       form.validForms.enterpriseInfo = false;
     }
+
+    if (form.formData.setorEmpresa === "Motorista") {
+      form.isDriver = true
+      console.log(isDriver)
+    } else {
+      form.isDriver = false
+    }
   },
 );
 
@@ -72,7 +79,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <pre>{{ cities }}</pre>
   <div class="w-[100%] h-[100%] p-3 flex flex-col justify-evenly items-center">
     <Selector label="Cidade residencial" placeholder="Insira a cidade da sua empresa..." :icon="City"
       v-model="form.formData.cidadeResidencia" :options="teste" labelField="nome"

@@ -7,8 +7,9 @@ import {
   DriverInfo,
   RegisterPageController,
 } from "@/components";
+
 import { usePersonalRegisterForm } from "@/stores";
-import { ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import createUser from "@/services/auth/user";
 import { hashPassword } from "@/utils";
 
@@ -30,6 +31,11 @@ async function submitForm() {
     form.resetForm();
   }
 }
+
+
+onMounted(() => {
+  form.totalPages = 3;
+});
 </script>
 
 <template>
