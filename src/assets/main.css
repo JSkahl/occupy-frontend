@@ -17,6 +17,6 @@
 }
 
 body {
-  height: 100vh;
+  height: 100dvh;
   color: var(--gray);
 }
