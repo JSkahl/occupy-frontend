@@ -70,11 +70,11 @@ onMounted(() => {
 });
 
 function checkIsDriver() {
-    if (form.formData.setorEmpresa === "Motorista") {
-        form.totalPages = 4
-    } else {
-        form.totalPages = 3
-    }
+  if (form.formData.setorEmpresa === "Motorista") {
+    form.totalPages = 4;
+  } else {
+    form.totalPages = 3;
+  }
 }
 </script>
 

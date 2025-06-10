@@ -18,7 +18,6 @@ export const usePersonalRegisterForm = defineStore(
     });
 
     function nextPage() {
-      console.log(currentPage.value);
       if (currentPage.value >= totalPages.value) {
         currentPage.value = totalPages.value;
       } else {
