@@ -9,13 +9,60 @@ import {
 } from "@/components";
 
 import { usePersonalRegisterForm } from "@/stores";
-import { onMounted, ref, watch } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import createUser from "@/services/auth/user";
 import { hashPassword } from "@/utils";
 
 const form = usePersonalRegisterForm();
 const loading = ref(false);
 const error = ref(null);
+
+onMounted(() => {
+  form.formData = {
+    celular: "",
+    cidadeResidencia: {},
+    cnh: "",
+    documento: "",
+    email: "",
+    emailValido: false,
+    empresaAfiliada: "",
+    genero: "",
+    nome: "",
+    rntrc: "",
+    senha: "",
+    setorEmpresa: "",
+  };
+
+  form.validForms = {
+    personalIdInfo: false,
+    personalInfo: false,
+    enterpriseInfo: false,
+    driverInfo: false,
+  };
+
+  form.extraFields.value = {
+    confirmEmail: "",
+    confirmSenha: "",
+  };
+
+  form.pageKeys = [
+    "personalIdInfo",
+    "personalInfo",
+    "enterpriseInfo",
+    "driverInfo",
+  ];
+
+  form.totalPages = 3;
+});
+
+onUnmounted(() => {
+  form.formData = {};
+  form.validForms = {};
+  form.pageKeys = [];
+  form.extraFields = {};
+
+  form.totalPages = 1;
+});
 
 async function submitForm() {
   form.formData.senha = hashPassword(form.formData.senha);
@@ -28,14 +75,9 @@ async function submitForm() {
     console.error(err);
   } finally {
     loading.value = false;
-    form.resetForm();
+    form.resetAllForms(form.formData, form.validForms, form.extraFields);
   }
 }
-
-
-onMounted(() => {
-  form.totalPages = 3;
-});
 </script>
 
 <template>

@@ -1,6 +1,6 @@
 <script setup>
 import { Input, PasswordInput } from "@/components";
-import { computed, reactive, watch } from "vue";
+import { computed, reactive, watch, watchEffect } from "vue";
 import Account from "vue-material-design-icons/Account.vue";
 import { usePersonalRegisterForm } from "@/stores";
 
@@ -14,30 +14,29 @@ const validations = reactive({
 });
 
 const checkEmailParity = computed(() => {
-  let message = "";
-  if (
-    form.extraFields.confirmEmail &&
-    form.formData.email != form.extraFields.confirmEmail
-  ) {
-    message = "Os emails não coincidem";
-    form.formData.emailValido = false;
-  } else {
-    message = "";
-    form.formData.emailValido = true;
-  }
+  const email = form.formData.email;
+  const confirmEmail = form.extraFields.confirmEmail;
 
-  return message;
+  return !confirmEmail || email === confirmEmail
+    ? ""
+    : "Os emails não coincidem";
 });
 
 const checkPasswordParity = computed(() => {
-  if (
-    form.extraFields.confirmSenha &&
-    form.formData.senha != form.extraFields.confirmSenha
-  ) {
-    return "As senhas não coincidem";
-  } else {
-    return "";
-  }
+  const senha = form.formData.senha;
+  const confirmSenha = form.extraFields.confirmSenha;
+
+  return !confirmSenha || senha === confirmSenha
+    ? ""
+    : "As senhas não coincidem";
+});
+
+watch(checkEmailParity, (message) => {
+  form.formData.emailValido = message === "";
+});
+
+watch(checkPasswordParity, (message) => {
+  validations.confirmSenha = message === "";
 });
 
 watch(

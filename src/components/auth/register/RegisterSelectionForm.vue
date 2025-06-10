@@ -1,5 +1,6 @@
 <script setup>
 import { Button, Title } from "@/components";
+
 </script>
 
 <template>

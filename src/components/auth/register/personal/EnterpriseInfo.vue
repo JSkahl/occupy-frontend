@@ -18,21 +18,28 @@ const sectors = [
 
 const teste = [
   {
-    "codigoIbge": "string",
-    "id": 0,
-    "nome": "string",
-    "pais": "BRASIL",
-    "posicaoLatLng": {
-      "latitude": 0,
-      "longitude": 0
+    codigoIbge: "string",
+    id: 0,
+    nome: "string",
+    pais: "BRASIL",
+    posicaoLatLng: {
+      latitude: 0,
+      longitude: 0,
     },
-    "uf": "string"
-  }
-]
+    uf: "string",
+  },
+];
 
-const cities = ref([{nome: 'teste'}]);
+const form = usePersonalRegisterForm();
+const cities = ref([{ nome: "teste" }]);
 const loading = ref(false);
 const error = ref(null);
+
+const validations = reactive({
+  cidadeResidencia: false,
+  empresaAfiliada: false,
+  setorEmpresa: false,
+});
 
 async function loadCities() {
   loading.value = true;
@@ -46,14 +53,6 @@ async function loadCities() {
   }
 }
 
-const form = usePersonalRegisterForm();
-
-const validations = reactive({
-  cidadeResidencia: false,
-  empresaAfiliada: false,
-  setorEmpresa: false,
-});
-
 watch(
   () => Object.values(validations),
   (val) => {
@@ -63,31 +62,57 @@ watch(
     } else {
       form.validForms.enterpriseInfo = false;
     }
-
-    if (form.formData.setorEmpresa === "Motorista") {
-      form.isDriver = true
-      console.log(isDriver)
-    } else {
-      form.isDriver = false
-    }
   },
 );
 
 onMounted(() => {
   loadCities();
 });
+
+function checkIsDriver() {
+    if (form.formData.setorEmpresa === "Motorista") {
+        form.totalPages = 4
+    } else {
+        form.totalPages = 3
+    }
+}
 </script>
 
 <template>
   <div class="w-[100%] h-[100%] p-3 flex flex-col justify-evenly items-center">
-    <Selector label="Cidade residencial" placeholder="Insira a cidade da sua empresa..." :icon="City"
-      v-model="form.formData.cidadeResidencia" :options="teste" labelField="nome"
-      @valid="validations.cidadeResidencia = true" @invalid="validations.cidadeResidencia = false" :returnObject="true"/>
-    <Selector label="Empresa afiliada" placeholder="Insira a empresa em que está afiliado..." :icon="Domain"
-      v-model="form.formData.empresaAfiliada" :options="teste" labelField="nome"
-      @valid="validations.empresaAfiliada = true" @invalid="validations.empresaAfiliada = false" />
-    <Selector label="Setor" placeholder="Insira o seu setor..." :icon="AccountTie"
-      v-model="form.formData.setorEmpresa" :options="sectors" labelField="name"
-      @valid="validations.setorEmpresa = true" @invalid="validations.setorEmpresa = false" />
+    <Selector
+      label="Cidade residencial"
+      placeholder="Insira a cidade da sua empresa..."
+      v-model="form.formData.cidadeResidencia"
+      labelField="nome"
+      :options="teste"
+      :returnObject="true"
+      :icon="City"
+      @valid="validations.cidadeResidencia = true"
+      @invalid="validations.cidadeResidencia = false"
+    />
+
+    <Selector
+      label="Empresa afiliada"
+      placeholder="Insira a empresa em que está afiliado..."
+      v-model="form.formData.empresaAfiliada"
+      labelField="nome"
+      :icon="Domain"
+      :options="teste"
+      @valid="validations.empresaAfiliada = true"
+      @invalid="validations.empresaAfiliada = false"
+    />
+
+    <Selector
+      label="Setor"
+      placeholder="Insira o seu setor..."
+      v-model="form.formData.setorEmpresa"
+      labelField="name"
+      :icon="AccountTie"
+      :options="sectors"
+      @valid="validations.setorEmpresa = true"
+      @invalid="validations.setorEmpresa = false"
+      @blur="checkIsDriver"
+    />
   </div>
 </template>

@@ -1,112 +1,75 @@
 import { defineStore } from "pinia";
-import { reactive, ref } from "vue";
+import { ref, computed } from "vue";
 
 export const usePersonalRegisterForm = defineStore(
-	"personalRegisterForm",
-	() => {
-		const currentPage = ref(1);
-		const totalPages = ref(4);
-		const isDriver = ref(false);
+  "personalRegisterForm",
+  () => {
+    const currentPage = ref(1);
+    const totalPages = ref(1);
 
-		function enableDriverPage() {
-			if (isDriver) {
-				return totalPages++;
-			} else {
-				return (totalPages.value = 4);
-			}
-		}
+    const formData = ref({});
+    const validForms = ref({});
+    const extraFields = ref({});
+    const pageKeys = ref([]);
 
-		const validForms = reactive({
-			personalIdInfo: false,
-			personalInfo: false,
-			enterpriseInfo: false,
-			driverInfo: false,
-		});
+    const isCurrentFormValid = computed(() => {
+      const key = pageKeys.value[currentPage.value - 1];
+      return !!key && validForms.value[key] === true;
+    });
 
-		const pageKeys = [
-			"personalIdInfo",
-			"personalInfo",
-			"enterpriseInfo",
-			"driverInfo",
-		];
+    function nextPage() {
+      console.log(currentPage.value);
+      if (currentPage.value >= totalPages.value) {
+        currentPage.value = totalPages.value;
+      } else {
+        currentPage.value++;
+      }
+    }
 
-		function isCurrentFormValid() {
-			const key = pageKeys[currentPage.value - 1];
-			return validForms[key];
-		}
+    function previousPage() {
+      if (currentPage.value <= 1) {
+        currentPage.value = 1;
+      } else {
+        currentPage.value--;
+      }
+    }
 
-		const extraFields = reactive({
-			confirmEmail: "",
-			confirmSenha: "",
-		});
+    function resetForm(obj) {
+      for (const key in obj) {
+        const value = obj[key];
 
-const formData = reactive({
-  celular: "",
-  cidadeResidencia: {},
-  cnh: "",
-  documento: "",
-  email: "",
-  emailValido: false,
-  empresaAfiliada: "",
-  genero: "",
-  nome: "",
-  rntrc: "",
-  senha: "",
-  setorEmpresa: ""
-});
+        if (typeof value === "boolean") {
+          obj[key] = false;
+        }
 
-		function nextPage() {
-			if (currentPage.value >= totalPages.value) {
-				currentPage.value = totalPages.value;
-			} else {
-				currentPage.value++;
-			}
-		}
+        if (typeof value === "string") {
+          obj[key] = "";
+        }
 
-		function previousPage() {
-			if (currentPage.value <= 1) {
-				currentPage.value = 1;
-			} else {
-				currentPage.value--;
-			}
-		}
+        if (typeof value === "object" && value !== null) {
+          obj[key] = {};
+        }
+      }
 
-		function resetForm() {
-			formData.email = "";
-			formData.emailValido = false;
-			formData.senha = "";
-			formData.nome = "";
-			formData.genero = "";
-			formData.documento = "";
-			formData.celular = "";
-			formData.cidadeResidencia = {};
-			formData.empresaAfiliada = "";
-			formData.setorEmpresa = "";
-			formData.cnh = "";
-			formData.rntrc = "";
-      extraFields.confirmEmail = "";
-      extraFields.confirmSenha = "";
-      validForms.personalIdInfo = false;
-      validForms.personalInfo = false;
-      validForms.enterpriseInfo = false;
-      validForms.driverInfo = false;
+      currentPage.value = 1;
+    }
 
-			currentPage.value = 1;
-      isDriver.value = false;
-      isCurrentFormValid();
-		}
+    function resetAllForms(...objects) {
+      objects.forEach((obj) => resetForm(obj));
+    }
 
-		return {
-			currentPage,
-			totalPages,
-			nextPage,
-			previousPage,
-			formData,
-			resetForm,
-			enableDriverPage,
-			validForms,
-			extraFields,
-			isCurrentFormValid,
-		};
-	},
+    return {
+      currentPage,
+      totalPages,
+      formData,
+      validForms,
+      pageKeys,
+      extraFields,
+      isCurrentFormValid,
+      nextPage,
+      resetForm,
+      resetAllForms,
+      previousPage,
+    };
+  },
 );
