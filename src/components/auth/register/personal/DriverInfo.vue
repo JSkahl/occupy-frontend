@@ -28,7 +28,7 @@ watch(
 
 <template>
   <div
-    class="w-[100%] h-[100%] px-3 py-32 flex flex-col justify-between items-center"
+    class="w-[100%] h-[100%] px-3 py-32 flex flex-col justify-evenly items-center"
   >
     <Input
       label="Número da CNH"

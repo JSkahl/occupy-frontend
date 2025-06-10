@@ -39,7 +39,7 @@ watch(
 
 <template>
   <!--Form-->
-  <div class="w-[50vw] h-[100%] flex flex-col justify-around items-center">
+  <div class="w-[100%] h-[100%] flex flex-col justify-around items-center">
     <Input
       label="Nome completo"
       placeholder="Insira o seu nome..."

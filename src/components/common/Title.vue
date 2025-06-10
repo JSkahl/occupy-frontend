@@ -1,15 +1,15 @@
 <script setup>
-  defineProps({
-    text: {
-      type: String,
-      required: true,
-    },
+defineProps({
+  text: {
+    type: String,
+    required: true,
+  },
 
-    size: {
-      type: Number,
-      required: true,
-    }
-  })
+  size: {
+    type: Number,
+    required: true,
+  },
+});
 </script>
 
 <template>
@@ -20,4 +20,3 @@
   <h5 v-else-if="size === 5" class="text-lg">{{ text }}</h5>
   <h6 v-else class="text-base">{{ text }}</h6>
 </template>
-

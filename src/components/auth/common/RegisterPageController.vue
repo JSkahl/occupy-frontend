@@ -9,7 +9,7 @@ const form = usePersonalRegisterForm();
 <template>
     <div>
         <!--Buttons-->
-        <div class="w-[50vw] flex px-2.5 justify-end">
+        <div class="w-[100%] flex px-2.5 justify-end">
             <!--Left button-->
             <button v-if="form.currentPage != 1"
                 class="w-12 h-12 flex justify-center items-center bg-[var(--blue)] hover:bg-[var(--darker-blue)] text-[var(--white)] rounded-lg cursor-pointer"
@@ -50,8 +50,6 @@ const form = usePersonalRegisterForm();
             </div>
         </div>
     </div>
-    {{ form.currentPage }}
-    {{ form.validForms }}
 </template>
 
 <style scoped>

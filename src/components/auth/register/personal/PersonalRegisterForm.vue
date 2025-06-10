@@ -12,7 +12,9 @@ import { usePersonalRegisterForm } from "@/stores";
 import { onMounted, onUnmounted, ref } from "vue";
 import createUser from "@/services/auth/user";
 import { hashPassword } from "@/utils";
+import { useScreenResize } from "@/composables";
 
+const { isMobile } = useScreenResize();
 const form = usePersonalRegisterForm();
 const loading = ref(false);
 const error = ref(null);
@@ -82,7 +84,8 @@ async function submitForm() {
 
 <template>
   <form
-    class="w-[50vw] h-screen flex flex-col justify-between"
+    class="h-screen flex flex-col justify-between w-[50%]"
+    :class="isMobile ? 'w-[100%]' : 'w-[50%]'"
     @submit.prevent="submitForm"
   >
     <Title text="Cadastro Pessoal" :size="1" class="pl-6 pt-6" />

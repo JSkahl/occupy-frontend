@@ -19,12 +19,12 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:modelValue", "invalid", "valid"]);
+const emit = defineEmits(["update:modelValue", "invalid", "valid", "blur"]);
 
 const inputValue = ref(
   typeof props.modelValue === "object"
-    ? props.modelValue?.[props.labelField] ?? ""
-    : props.modelValue || ""
+    ? (props.modelValue?.[props.labelField] ?? "")
+    : props.modelValue || "",
 );
 const isDroped = ref(false);
 const errorMessage = ref("");
@@ -50,9 +50,10 @@ const handleSelect = (option) => {
 };
 
 function validateInput(option = null) {
+  emit("blur");
   const isValid = props.options.some(
     (opt) =>
-      opt[props.labelField].toLowerCase() === inputValue.value.toLowerCase()
+      opt[props.labelField].toLowerCase() === inputValue.value.toLowerCase(),
   );
 
   if (!isValid) {
@@ -75,7 +76,9 @@ const dropMenu = () => {
 <template>
   <div>
     <label class="text-[var(--blue)] pl-[1%]">{{ label }}</label>
-    <div class="flex justify-around border border-(--blue) text-(--gray) placeholder-(--gray) rounded-md gap-1 pr-1 pl-1 w-52 h-6 md:w-64 md:h-8 lg:w-72 lg:h-10 xl:w-xs xl:h-12">
+    <div
+      class="flex justify-around border border-(--blue) text-(--gray) placeholder-(--gray) rounded-md gap-1 pr-1 pl-1 w-52 h-6 md:w-64 md:h-8 lg:w-72 lg:h-10 xl:w-xs xl:h-12"
+    >
       <component :is="icon" />
       <input
         type="text"
@@ -90,13 +93,16 @@ const dropMenu = () => {
         <MenuDown />
       </span>
     </div>
-    <Dropdown
-      v-if="isDroped"
-      @select="handleSelect"
-      :options="filteredOptions"
-      :labelField="labelField"
-      class="z-50"
-    />
+    <div class="">
+      <Dropdown
+        v-if="isDroped"
+        @select="handleSelect"
+        :options="filteredOptions"
+        :labelField="labelField"
+        class="z-50"
+      />
+    </div>
+
     <p v-if="errorMessage" class="absolute text-red-500 text-sm">
       {{ errorMessage }}
     </p>
