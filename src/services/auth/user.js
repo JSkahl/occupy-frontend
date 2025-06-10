@@ -1,5 +1,4 @@
 import api from "@/plugins/axios";
-import axios from "axios";
 
 export default async function createUser(formData) {
   try {

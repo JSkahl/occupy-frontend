@@ -1,5 +1,6 @@
 <script setup>
 import { Button, Title } from "@/components";
+
 </script>
 
 <template>
@@ -10,10 +11,16 @@ import { Button, Title } from "@/components";
 
     <div class="w-[100%] h-[35%] flex flex-col justify-around items-center">
       <RouterLink to="/personal-register">
-        <Button variant="filled" text="Pessoal, para uso dentro de uma empresa existente" />
+        <Button
+          variant="filled"
+          text="Pessoal, para uso dentro de uma empresa existente"
+        />
       </RouterLink>
       <RouterLink to="/enterprise-register">
-        <Button variant="filled" text="Empresarial, para criar uma conta de empresa" />
+        <Button
+          variant="filled"
+          text="Empresarial, para criar uma conta de empresa"
+        />
       </RouterLink>
     </div>
   </div>

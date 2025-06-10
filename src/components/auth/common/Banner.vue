@@ -1,7 +1,7 @@
 <template>
   <div 
     class="
-      w-[50%] h-screen
+      w-[50vw] h-screen
       bg-[var(--blue)] 
       text-[var(--white)]
       text-8xl
