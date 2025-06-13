@@ -42,10 +42,5 @@ defineProps({
 </template>
 
 <style scoped>
-:deep(.material-design-icon__svg) {
-    width: 100%;
-    height: 100%;
-    margin: auto;
-    color: var(--blue);
-}
+
 </style>
