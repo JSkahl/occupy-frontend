@@ -6,7 +6,7 @@ import AccountCircle from "vue-material-design-icons/AccountCircle.vue";
 <template>
   <header class="
         bg-(--blue) text-(--white)
-        w-[100vw] 2xl:h-[10vh] xl:h-[10vh] md:h-[9vh] h-[8vh]
+        w-[100vw] 2xl:h-[8vh] xl:h-[9vh] md:h-[10vh] lg:h-[11] h-[12vh]
         flex items-center justify-between p-2
   ">
     <p class="
