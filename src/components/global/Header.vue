@@ -1,15 +1,20 @@
 <script setup>
-import { Title } from '@/components'
-import Whatsapp from 'vue-material-design-icons/Whatsapp.vue'
-import AccountCircle from 'vue-material-design-icons/AccountCircle.vue'
+import Whatsapp from "vue-material-design-icons/Whatsapp.vue";
+import AccountCircle from "vue-material-design-icons/AccountCircle.vue";
 </script>
 
 <template>
-    <header class="bg-(--blue) text-(--white) w-[100vw] h-20 flex items-center justify-between p-2">
-        <Title text="OCCUPY" :size="2" />
-        <div class="flex w-[4%] justify-between">
-            <Whatsapp />
-            <AccountCircle />
-        </div>
-    </header>
+  <header class="
+        bg-(--blue) text-(--white)
+        w-[100vw] 2xl:h-[10vh] xl:h-[10vh] md:h-[9vh] h-[8vh]
+        flex items-center justify-between p-2
+  ">
+    <p class="
+        2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg sm:text-md text-sm" 
+    >OCCUPY</p>
+    <div class="flex gap-5">
+      <Whatsapp />
+      <AccountCircle />
+    </div>
+  </header>
 </template>

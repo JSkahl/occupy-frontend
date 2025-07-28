@@ -4,7 +4,7 @@ import { Title } from "@/components";
 defineProps({
   icon: {
     type: Object,
-    required: true,
+    required: true
   },
 
   text: {

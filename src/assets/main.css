@@ -16,7 +16,13 @@
   margin: 0;
 }
 
-body {
+html, body {
   height: 100dvh;
+  margin: 0;
+  padding: 0;
   color: var(--gray);
+}
+
+#app {
+    height: 100%;
 }

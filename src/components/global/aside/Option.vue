@@ -1,6 +1,4 @@
 <script setup>
-import { Title } from "@/components";
-
 defineProps({
     icon: {
         type: Object,
@@ -27,20 +25,25 @@ defineProps({
 </script>
 
 <template>
-    <div :to="link" class="flex justify-between items-center w-[90%] h-24 cursor-pointer">
+    <div :to="link" class="
+        h-14 w-30 sm:w-32 md:w-36 lg:w-40 xl:w-44 2xl:w-48  
+        flex justify-between items-center cursor-pointer 
+    ">
         <div class="w-[20%]">
-            <component :is="icon" class="bg-blue-500 icon" />
+            <component :is="icon" class="bg-blue-500" />
         </div>
 
-        <div class="w-[75%]">
-            <Title :text="text" :size="3" />
-        </div>
+        <p class="w-[75%] text-(--blue)">{{ text }}</p>
     </div>
     <div v-if="hasBar" class="w-[100%] flex justify-center mb-10 m-72">
-        <div class="border-(--blue) border w-[70%]"></div>
+        <div class="border-(--blue) border w-[60%]"></div>
     </div>
 </template>
 
 <style scoped>
-
+:deep(.material-design-icon__svg) {
+  width: 60%;
+  height: 60%;
+  color: var(--blue);
+}
 </style>

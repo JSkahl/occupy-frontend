@@ -1,28 +1,42 @@
 <script setup>
 import { Option } from "@/components";
 import {
-    Home,
-    StoreSearch,
-    Book,
-    Autorenew,
-    Map,
-    Send,
-    HelpCircle,
-    AccountCog,
-    MicrosoftOffice,
+  Home,
+  StoreSearch,
+  Book,
+  Autorenew,
+  Map,
+  Send,
+  HelpCircle,
+  AccountCog,
+  MicrosoftOffice,
 } from "@/icons";
+
+const items = [
+  { name: "Menu", icon: Home },
+  { name: "Buscar", icon: StoreSearch },
+  { name: "Reservas", icon: Book },
+  { name: "Cadastros", icon: Autorenew },
+  { name: "Mapa", icon: Map },
+  { name: "Mensagens", icon: Send },
+  { name: "Suporte", icon: HelpCircle },
+  { name: "Administrador", icon: AccountCog },
+  { name: "Back-Office", icon: MicrosoftOffice },
+];
 </script>
 
 <template>
-    <aside class="bg-(--white) border-r-(--blue) border-r-3 h-[100vh] w-52 flex flex-col items-center">
-        <Option :icon="Home" text="Menu" />
-        <Option :icon="StoreSearch" text="Buscar" />
-        <Option :icon="Book" text="Reservas" />
-        <Option :icon="Autorenew" text="Cadastros" />
-        <Option :icon="Map" text="Mapa" />
-        <Option :icon="Send" text="Mensagens" />
-        <Option :icon="HelpCircle" text="Suporte" />
-        <Option :icon="AccountCog" text="Administrar" />
-        <Option :icon="MicrosoftOffice" text="Back-Office" :hasBar="false"/>
-    </aside>
+  <div class="
+      h-[89.5%] w-36 sm:w-40 md:w-44 lg:w-48 xl:w-52 2xl:w-64
+      bg-(--white) border-r-(--blue) border-r-2
+      flex flex-col items-center
+  ">
+    <Option 
+        v-for="item in items" 
+        :icon="item.icon" 
+        :text="item.name" 
+        :key="item"
+        :hasBar="items.length - 1 === items.indexOf(item) ? false : true"
+    />
+  </div>
 </template>

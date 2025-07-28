@@ -3,6 +3,6 @@
 </script>
 
 <template>
-    <Header />
-    <AsideMenu />
+        <Header />
+        <AsideMenu />
 </template>
