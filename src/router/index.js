@@ -13,12 +13,12 @@ const router = createRouter({
                 },
                 // CRUD Vehicle
                 {
-                    path: "vehicle-rent",
-                    component: () => import("@/views/vehicle/rent/RentVehicle.vue"),
+                    path: "equipment-rent",
+                    component: () => import("@/views/equipment/rent/RentVehicle.vue"),
                 },
                 {
-                    path: "vehicle-register",
-                    component: () => import("@/views/vehicle/register/RegisterVehicle.vue"),
+                    path: "equipment-register",
+                    component: () => import("@/views/equipment/register/RegisterEquipment.vue"),
                 },
             ],
         },

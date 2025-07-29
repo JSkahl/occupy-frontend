@@ -1,10 +1,10 @@
 <script setup>
 import {
   Title,
-  VehicleId,
-  VehicleInfo,
-  VehicleDoc,
-  VehiclePreview,
+  EquipmentId,
+  EquipmentInfo,
+  EquipmentDoc,
+  EquipmentPreview,
   RegisterPageController,
 } from "@/components";
 </script>
@@ -30,19 +30,19 @@ import {
             w-full h-[70%] bg-red-800
             flex flex-row justify-between
         ">
-          <VehicleId />
-          <VehicleDoc />
+          <EquipmentId />
+          <EquipmentDoc />
         </div>
 
         <!--Second row-->
-        <VehicleInfo />
+        <EquipmentInfo />
       </div>
     
       <!--Separator-->
       <div class="w-[1px] bg-(--blue) h-full"></div>
 
       <!--Second Column-->
-      <VehiclePreview />
+      <EquipmentPreview />
     </div>
     <RegisterPageController />
   </div>

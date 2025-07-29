@@ -1,4 +1,4 @@
 import DashboardOption from "./DashboardOption.vue";
 
 export { DashboardOption, };
-export * from "./rent-vehicle";
+export * from "./rent-equipment";
