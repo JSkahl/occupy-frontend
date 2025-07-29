@@ -12,7 +12,7 @@ const form = usePersonalRegisterForm();
         <div class="w-[100%] flex px-2.5 justify-end">
             <!--Left button-->
             <button v-if="form.currentPage != 1"
-                class="w-12 h-12 flex justify-center items-center bg-[var(--blue)] hover:bg-[var(--darker-blue)] text-[var(--white)] rounded-lg cursor-pointer"
+                class="w-8 h-8 flex justify-center items-center bg-[var(--blue)] hover:bg-[var(--darker-blue)] text-[var(--white)] rounded-lg cursor-pointer"
                 type="button"
                 @click="form.previousPage">
                 <ArrowLeft />
@@ -23,7 +23,7 @@ const form = usePersonalRegisterForm();
 
             <!--Right button-->
             <button
-                class="w-12 h-12 flex justify-center items-center bg-[var(--blue)] hover:bg-[var(--darker-blue)] text-[var(--white)] rounded-lg cursor-pointer"
+                class="w-8 h-8 flex justify-center items-center bg-[var(--blue)] hover:bg-[var(--darker-blue)] text-[var(--white)] rounded-lg cursor-pointer"
                 v-if="form.currentPage < form.totalPages" 
                 type="button"
                 @click="form.nextPage()" 

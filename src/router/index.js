@@ -8,8 +8,17 @@ const router = createRouter({
             component: () => import("@/layout/layouts/Layout.vue"),
             children: [
                 {
-                    path: "/dashboard",
+                    path: "",
                     component: () => import("@/views/Dashboard.vue"),
+                },
+                // CRUD Vehicle
+                {
+                    path: "vehicle-rent",
+                    component: () => import("@/views/vehicle/rent/RentVehicle.vue"),
+                },
+                {
+                    path: "vehicle-register",
+                    component: () => import("@/views/vehicle/register/RegisterVehicle.vue"),
                 },
             ],
         },
