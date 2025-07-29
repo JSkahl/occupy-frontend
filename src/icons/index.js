@@ -7,6 +7,8 @@ import Send from "vue-material-design-icons/Send.vue";
 import HelpCircle from "vue-material-design-icons/HelpCircle.vue";
 import AccountCog from "vue-material-design-icons/AccountCog.vue";
 import MicrosoftOffice from "vue-material-design-icons/MicrosoftOffice.vue";
+import Tools from "vue-material-design-icons/Tools.vue";
+import Handshake from "vue-material-design-icons/Handshake.vue";
 
 export {
     Home,
@@ -18,4 +20,6 @@ export {
     HelpCircle,
     AccountCog,
     MicrosoftOffice,
+    Tools,
+    Handshake,
 };

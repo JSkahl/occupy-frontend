@@ -27,10 +27,11 @@ defineProps({
 <template>
     <div :to="link" class="
         h-14 w-30 sm:w-32 md:w-36 lg:w-40 xl:w-44 2xl:w-48  
-        flex justify-between items-center cursor-pointer 
+        flex items-center cursor-pointer 
+        grow-animation
     ">
         <div class="w-[20%]">
-            <component :is="icon" class="bg-blue-500" />
+            <component :is="icon" />
         </div>
 
         <p class="w-[75%] text-(--blue)">{{ text }}</p>

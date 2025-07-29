@@ -26,3 +26,7 @@ html, body {
 #app {
     height: 100%;
 }
+
+.grow-animation {
+    @apply transition-transform duration-200 transform hover:scale-105
+}

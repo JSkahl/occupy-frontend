@@ -27,8 +27,8 @@ const items = [
 
 <template>
   <div class="
-      h-full w-36 sm:w-40 md:w-44 lg:w-48 xl:w-52 2xl:w-64
-      bg-(--white) border-r-(--blue) border-r-2
+      h-full w-28 sm:w-32 md:w-36 lg:w-40 xl:w-44 2xl:w-48
+      bg-(--white) border-r-(--blue) border-r-1
       flex flex-col items-center flex-shrink-0 px-[1%]
   ">
     <Option 
