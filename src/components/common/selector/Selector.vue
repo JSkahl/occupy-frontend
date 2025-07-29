@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch } from "vue";
+import { ref, computed } from "vue";
 import MenuDown from "vue-material-design-icons/MenuDown.vue";
 import { Dropdown } from "@/components";
 
@@ -9,13 +9,21 @@ const props = defineProps({
   icon: Object,
   options: Array,
   modelValue: [String, Object],
+
   labelField: {
     type: String,
     default: "name",
   },
+
   returnObject: {
     type: Boolean,
     default: false,
+  },
+
+  size: {
+    type: String,
+    default: "medium",
+    validator: (value) => ["small", "medium", "large"].includes(value),
   },
 });
 
@@ -71,13 +79,26 @@ function validateInput(option = null) {
 const dropMenu = () => {
   isDroped.value = !isDroped.value;
 };
+
+const sizeClasses = computed(() => {
+  switch (props.size) {
+    case "small":
+      return "w-44 h-6 text-sm";
+    case "large":
+      return "w-72 h-12 text-lg";
+    case "medium":
+    default:
+      return "w-64 h-8 text-base";
+  }
+});
 </script>
 
 <template>
   <div>
     <label class="text-[var(--blue)] pl-[1%]">{{ label }}</label>
     <div
-      class="flex justify-around border border-(--blue) text-(--gray) placeholder-(--gray) rounded-md gap-1 pr-1 pl-1 w-52 h-6 md:w-64 md:h-8 lg:w-72 lg:h-10 xl:w-xs xl:h-12"
+        class="flex justify-around border border-[var(--blue)] text-[var(--gray)] placeholder-[var(--gray)] rounded-md gap-1 pr-1 pl-1"
+        :class="sizeClasses"
     >
       <component :is="icon" />
       <input
@@ -89,9 +110,11 @@ const dropMenu = () => {
         :placeholder="placeholder"
         class="border-none focus:outline-none w-full h-full"
       />
+
       <span @click="dropMenu()" class="cursor-pointer">
         <MenuDown />
       </span>
+
     </div>
     <div class="">
       <Dropdown
@@ -99,6 +122,7 @@ const dropMenu = () => {
         @select="handleSelect"
         :options="filteredOptions"
         :labelField="labelField"
+        :size="size"
         class="z-50"
       />
     </div>
