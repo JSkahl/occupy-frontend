@@ -9,6 +9,7 @@ const props = defineProps({
     default: false,
   },
 });
+const emit = defineEmits(["valid", "invalid"]);
 
 // Modal state
 const isShowing = ref(false);
@@ -17,20 +18,27 @@ onMounted(() => {
   isShowing.value = props.isModalOpen;
 });
 
-const closeModal = () => {
-  isShowing.value = false;
-};
-
 // Image storage
 const images = ref([]); // Array of { id, file, url }
 
+const closeModal = () => {
+  isShowing.value = false;
+
+  if (images.value.length === 0) {
+    emit("invalid");
+  } else {
+    emit("valid", images.value);
+  }
+};
 // Handle file input
 const onFileChange = (event) => {
   const selectedFiles = Array.from(event.target.files);
+
   selectedFiles.forEach((file) => {
     const url = URL.createObjectURL(file);
     images.value.push({ id: crypto.randomUUID(), file, url });
   });
+
   event.target.value = null;
 };
 
@@ -57,13 +65,16 @@ const removeSmallImage = (index) => images.value.splice(index, 1);
     leave-from-class="opacity-100 translate-y-0"
     leave-to-class="opacity-0 translate-y-4"
   >
+    <!-- Modal -->
     <div
       v-show="isShowing"
       class="fixed inset-0 bg-[#0a001a80] z-50 flex justify-center items-center"
     >
+      <!-- Pop-up -->
       <div
         class="w-[70%] h-[80%] bg-white shadow-lg overflow-auto rounded-lg relative flex flex-col"
       >
+        <!-- First Row -->
         <div class="flex flex-row-reverse justify-between items-center p-3.5">
           <!--Close Button-->
           <div
@@ -73,27 +84,30 @@ const removeSmallImage = (index) => images.value.splice(index, 1);
             <Close />
           </div>
         </div>
+
         <!-- Content -->
         <div class="w-full h-[75%] p-4">
           <!-- Image Preview Layout -->
           <div class="flex gap-6">
-            <!-- Big Image -->
-            <div class="flex-1 relative transition-transform duration-200 transform hover:scale-102 cursor-pointer" v-if="bigImage">
+            <!-- Last Image -->
+            <div
+              class="flex-1 relative transition-transform duration-200 transform hover:scale-102 cursor-pointer"
+              v-if="bigImage"
+            >
               <img
                 :src="bigImage"
                 class="w-full h-96 object-cover rounded shadow"
               />
               <button
                 @click="removeBigImage"
-                class="absolute top-2 right-2 bg-(--red) hover:bg-(--darker-red) grow-animation text-white w-8 h-8 rounded flex justify-center items-center
-                "
+                class="absolute top-2 right-2 bg-(--red) hover:bg-(--darker-red) grow-animation text-white w-8 h-8 rounded flex justify-center items-center"
               >
-              <Close />
+                <Close />
               </button>
             </div>
 
-            <!-- Small Images Column -->
-            <div class="flex flex-col gap-2 w-24">
+            <!-- Images Column -->
+            <div v-if="images.length > 1" class="flex flex-col gap-2 w-24">
               <div
                 v-for="(img, index) in smallImagesToShow"
                 :key="img.id"
@@ -105,9 +119,9 @@ const removeSmallImage = (index) => images.value.splice(index, 1);
                 />
                 <button
                   @click="removeSmallImage(index)"
-                  class="absolute top-1 right-1 bg-(--red) hover:bg-(--darker-red) grow-animation text-white text-xs w-5 h-5 flex items-center justify-center rounded small-btn"
+                  class="cursor-pointer absolute top-1 right-1 bg-(--red) hover:bg-(--darker-red) grow-animation text-white text-xs w-5 h-5 flex items-center justify-center rounded small-btn"
                 >
-                <Close/>
+                  <Close />
                 </button>
               </div>
 
@@ -140,7 +154,6 @@ const removeSmallImage = (index) => images.value.splice(index, 1);
           </label>
         </div>
       </div>
-
     </div>
   </transition>
 </template>
