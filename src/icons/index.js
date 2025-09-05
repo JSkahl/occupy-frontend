@@ -9,6 +9,8 @@ import AccountCog from "vue-material-design-icons/AccountCog.vue";
 import MicrosoftOffice from "vue-material-design-icons/MicrosoftOffice.vue";
 import Tools from "vue-material-design-icons/Tools.vue";
 import Handshake from "vue-material-design-icons/Handshake.vue";
+import Close from "vue-material-design-icons/Close.vue"
+import Plus from "vue-material-design-icons/Plus.vue"
 
 export {
     Home,
@@ -22,4 +24,6 @@ export {
     MicrosoftOffice,
     Tools,
     Handshake,
+    Close,
+    Plus,
 };

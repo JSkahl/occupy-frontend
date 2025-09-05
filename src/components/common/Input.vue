@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { isEmail } from "@/utils";
 
 const props = defineProps({
@@ -10,7 +10,7 @@ const props = defineProps({
 
   placeholder: {
     type: String,
-    required: true,
+    required: false,
   },
 
   icon: {
@@ -20,7 +20,7 @@ const props = defineProps({
 
   type: {
     type: String,
-    required: true,
+    required: false,
   },
 
   modelValue: {
@@ -34,6 +34,43 @@ const props = defineProps({
     default: "",
     required: false,
   },
+
+  size: {
+    type: String,
+    default: "large",
+    validator: (value) =>
+      ["small", "medium", "large", "xlarge"].includes(value),
+    required: false,
+  },
+
+  textBox: {
+    type: Boolean,
+    default: false,
+    required: false,
+  },
+});
+
+const widthClass = computed(() => {
+  switch (props.size) {
+    case "small":
+      return "w-28 sm:w-32 md:w-40";
+    case "medium":
+      return "w-40 sm:w-48 md:w-56";
+    case "large":
+      return "w-56 sm:w-72 md:w-84";
+    case "xlarge":
+      return "w-56 sm:w-84 md:w-[29rem] 2xl:w-[40rem]";
+    default:
+      return "w-56 sm:w-72 md:w-84";
+  }
+});
+
+const heightClass = computed(() => {
+  if (props.textBox) {
+    return "h-32";
+  } else {
+    return "h-12 3xl:h-16";
+  }
 });
 
 const emit = defineEmits([
@@ -73,11 +110,28 @@ function validateInput() {
     <label class="text-[var(--blue)] pl-[1%]">{{ label }}</label>
 
     <div
-      class="flex justify-around border border-[var(--blue)] text-[var(--gray)] placeholder-[var(--gray)] rounded-md gap-1 pr-1 pl-1 w-52 h-6 md:w-64 md:h-8 lg:w-72 lg:h-10 xl:w-xs xl:h-12">
+      class="flex justify-around border border-[var(--blue)] text-[var(--gray)] placeholder-[var(--gray)] rounded-md gap-1 pr-1 pl-1 text-base transition-transform duration-200 transform hover:scale-[100.5%]"
+      :class="[widthClass, heightClass]"
+    >
       <component :is="icon" />
 
-      <input @blur="validateInput" @input="emit('update:modelValue', $event.target.value)" :value="modelValue"
-        :placeholder="placeholder" class="border-none focus:outline-none w-full h-full" />
+      <input
+        v-if="!textBox"
+        @blur="validateInput"
+        @input="emit('update:modelValue', $event.target.value)"
+        :value="modelValue"
+        :placeholder="placeholder"
+        class="border-none focus:outline-none w-full h-full break-words"
+      />
+
+      <textarea
+        v-if="textBox"
+        @blur="validateInput"
+        @input="emit('update:modelValue', $event.target.value)"
+        :value="modelValue"
+        :placeholder="placeholder"
+        class="border-none focus:outline-none w-full h-full break-words resize-none"
+      />
     </div>
     <div class="absolute flex-col w-[100%]">
       <p v-if="differentFieldMessage" class="text-red-500 text-sm">

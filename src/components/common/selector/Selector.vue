@@ -79,17 +79,19 @@ function validateInput(option = null) {
 const dropMenu = () => {
   isDroped.value = !isDroped.value;
 };
-
-const sizeClasses = computed(() => {
-  switch (props.size) {
-    case "small":
-      return "w-44 h-6 text-sm";
-    case "large":
-      return "w-72 h-12 text-lg";
-    case "medium":
-    default:
-      return "w-64 h-8 text-base";
-  }
+const widthClass = computed(() => {
+switch (props.size) {
+  case "small":
+    return "w-28 sm:w-32 md:w-40";
+  case "medium":
+    return "w-40 sm:w-48 md:w-56";
+  case "large":
+    return "w-44 sm:w-60 md:w-72";
+  case "xlarge":
+    return "w-72 sm:w-84 md:w-[28rem]";
+  default:
+    return "w-56 sm:w-72 md:w-84";
+}
 });
 </script>
 
@@ -97,8 +99,15 @@ const sizeClasses = computed(() => {
   <div>
     <label class="text-[var(--blue)] pl-[1%]">{{ label }}</label>
     <div
-        class="flex justify-around border border-[var(--blue)] text-[var(--gray)] placeholder-[var(--gray)] rounded-md gap-1 pr-1 pl-1"
-        :class="sizeClasses"
+        class="
+        flex justify-around
+        border border-[var(--blue)]
+        text-[var(--gray)] placeholder-[var(--gray)]
+        rounded-md gap-1 pr-1 pl-1
+        transition-transform duration-200 transform hover:scale-[100.5%]
+        h-12 3xl:h-16
+        "
+        :class="widthClass"
     >
       <component :is="icon" />
       <input
@@ -124,6 +133,7 @@ const sizeClasses = computed(() => {
         :labelField="labelField"
         :size="size"
         class="z-50"
+        :isDroped="isDroped"
       />
     </div>
 

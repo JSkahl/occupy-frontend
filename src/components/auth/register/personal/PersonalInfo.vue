@@ -51,6 +51,7 @@ watch(
     />
     <Selector
       label="Gênero"
+      size="large"
       placeholder="Insira o seu gênero..."
       :icon="CircleOutline"
       v-model="form.formData.genero"
