@@ -1,49 +1,59 @@
 <script setup>
+import { onMounted, onUnmounted } from "vue";
 import {
-  Title,
-  EquipmentId,
-  EquipmentInfo,
-  EquipmentDoc,
-  EquipmentPreview,
+  EquipmentForm,
+  EquipmentTypeList,
   RegisterPageController,
 } from "@/components";
+import { usePersonalRegisterForm } from "@/stores";
+
+const form = usePersonalRegisterForm();
+
+onMounted(() => {
+  form.formData = {
+    type: {},
+    name: "",
+    desc: "",
+    pictures: [],
+    owner: "",
+    infos: {},
+  };
+
+  form.validForms = {
+    EquipmentType: false,
+    EquipmentRegister: false,
+  };
+
+  //form.extraFields.value = {};
+
+  form.pageKeys = ["EquipmentType", "EquipmentRegister"];
+
+  form.totalPages = 2;
+});
+
+onUnmounted(() => {
+  form.formData = {};
+  form.validForms = {};
+  form.pageKeys = [];
+  form.extraFields = {};
+
+  form.totalPages = 1;
+});
+
+function submitForm() {
+  console.log(form.formData);
+}
 </script>
 
 <template>
-  <div class="p-3 h-full">
-    <Title text="Cadastro de veículo" :size="1" />
+  <form
+    class="p-3 w-full h-full flex flex-col justify-between"
+    @submit.prevent="submitForm"
+  >
+    <EquipmentTypeList v-if="form.currentPage === 1" />
+    <EquipmentForm v-if="form.currentPage === 2" />
 
-    <!--Form-->
-    <div class="
-        h-[80%]
-        flex justify-between
-    ">
-
-      <!--First column-->
-      <div class="
-          w-[70%] h-full bg-blue-600
-          flex flex-col justify-between
-      ">
-
-        <!--First row-->
-        <div class="
-            w-full h-[70%] bg-red-800
-            flex flex-row justify-between
-        ">
-          <EquipmentId />
-          <EquipmentDoc />
-        </div>
-
-        <!--Second row-->
-        <EquipmentInfo />
-      </div>
-    
-      <!--Separator-->
-      <div class="w-[1px] bg-(--blue) h-full"></div>
-
-      <!--Second Column-->
-      <EquipmentPreview />
-    </div>
+    <!-- Page controller -->
     <RegisterPageController />
-  </div>
+  </form>
 </template>

@@ -7,12 +7,12 @@ const form = usePersonalRegisterForm();
 </script>
 
 <template>
-    <div>
+    <div class="flex flex-col items-center">
         <!--Buttons-->
-        <div class="w-[100%] flex px-2.5 justify-end">
+        <div class="w-[50vw] flex px-2.5 justify-end">
             <!--Left button-->
             <button v-if="form.currentPage != 1"
-                class="w-8 h-8 flex justify-center items-center bg-[var(--blue)] hover:bg-[var(--darker-blue)] text-[var(--white)] rounded-lg cursor-pointer"
+                class="w-10 h-10 flex justify-center items-center bg-[var(--blue)] hover:bg-[var(--darker-blue)] text-[var(--white)] rounded-lg cursor-pointer"
                 type="button"
                 @click="form.previousPage">
                 <ArrowLeft />
@@ -23,7 +23,7 @@ const form = usePersonalRegisterForm();
 
             <!--Right button-->
             <button
-                class="w-8 h-8 flex justify-center items-center bg-[var(--blue)] hover:bg-[var(--darker-blue)] text-[var(--white)] rounded-lg cursor-pointer"
+                class="w-10 h-10 flex justify-center items-center bg-[var(--blue)] hover:bg-[var(--darker-blue)] text-[var(--white)] rounded-lg cursor-pointer"
                 v-if="form.currentPage < form.totalPages" 
                 type="button"
                 @click="form.nextPage()" 
@@ -33,7 +33,7 @@ const form = usePersonalRegisterForm();
 
             <!--Submit button-->
             <button
-                class="w-12 h-12 flex justify-center items-center bg-[var(--blue)] hover:bg-[var(--darker-blue)] text-[var(--white)] rounded-lg cursor-pointer"
+                class="w-10 h-10 flex justify-center items-center bg-[var(--blue)] hover:bg-[var(--darker-blue)] text-[var(--white)] rounded-lg cursor-pointer"
                 type="submit" 
                 v-if="form.currentPage === form.totalPages" >
                 <Check />
@@ -41,9 +41,9 @@ const form = usePersonalRegisterForm();
         </div>
 
         <!--Dots-->
-        <div class="w-[50vw] h-12 px-[40%] flex justify-between items-center">
+        <div class="w-[10%] flex justify-between items-center pb-1">
             <div 
-                class="w-4 h-4 rounded-full shadow-[0_4px_3px_rgba(0,0,0,0.25)]"
+                class="w-5 h-5 rounded-full shadow-[0_4px_3px_rgba(0,0,0,0.25)]"
                 v-for="page in form.totalPages" 
                 :key="page" 
                 :class="[form.currentPage === page ? 'selected' : 'not-selected']">
